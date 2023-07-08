@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
     public GameObject entityToSpawn;
 
     // An instance of the ScriptableObject defined above.
-    public SpawnManagerScriptableObject spawnManagerValues;
+    public SpawnManagerSO spawnManagerValues;
 
     // This will be appended to the name of the created entities and increment when each is created.
     int instanceNumber = 1;

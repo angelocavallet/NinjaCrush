@@ -4,10 +4,11 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float jumpForce = 5f;
-    public float speed = 8f;
-    public InputAction moveInput;
-    public InputAction jumpInput;
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float speed = 8f;
+    [SerializeField] private InputAction moveInput;
+    [SerializeField] private InputAction jumpInput;
+
     private Rigidbody2D rb2D;
     private BoxCollider2D bxCol2D;
     private Animator anim;
@@ -55,9 +56,6 @@ public class PlayerMovement : MonoBehaviour
         
         anim.SetBool("Moving", moving);
         anim.SetBool("Grounded", grounded);
-
-        Debug.Log(grounded);
-
     }
     
     void OnCollisionStay2D(Collision2D col)
@@ -71,9 +69,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionExit2D(Collision2D col) {
+    void OnCollisionExit2D(Collision2D col) 
+    {
         if (col.gameObject.tag == "Ground") {
             grounded = false;
         }
+    }
+
+    public Vector2 GetNormalizedVelocity()
+    {
+        return rb2D.velocity.normalized;
+    }
+    public Vector2 GetVelocity()
+    {
+        return rb2D.velocity;
     }
 }
