@@ -5,22 +5,23 @@ using UnityEngine;
 
 public class BackgroundBehaviour : MonoBehaviour
 {
-    [SerializeField] private float hspeed = 0.0001f; 
-    [SerializeField] private float vspeed = 0.0001f; 
-    private PlayerMovement playerMovement;
+    [SerializeField] private float horizontalSpeed = 0.00001f; 
+    [SerializeField] private float verticalSpeed = 0.00001f; 
+    [SerializeField] private float windSpeed = 0.00001f;
+    [SerializeField] private PlayerMovement playerMovement;
     private Material material;
 
     void Awake() {
-        playerMovement = FindFirstObjectByType(typeof(PlayerMovement)) as PlayerMovement;
         material = GetComponent<MeshRenderer>().materials[0];
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector2 velocity = playerMovement.GetVelocity();
-        velocity.x *= hspeed;
-        velocity.y *= vspeed;
+        velocity.x *= horizontalSpeed;
+        velocity.y *= verticalSpeed;
+
+        velocity.x += windSpeed;
         material.mainTextureOffset += velocity;
 
     }
