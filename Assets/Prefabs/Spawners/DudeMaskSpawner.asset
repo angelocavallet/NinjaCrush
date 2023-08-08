@@ -10,13 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c358227763cd9cf44ad53cfbe9f057ab, type: 3}
-  m_Name: EnemyDudeMaskSpawner
+  m_Name: DudeMaskSpawner
   m_EditorClassIdentifier: 
   entityToSpawn: {fileID: 7303306152223621682, guid: 86da8dea02b13ce40967c9cff42a4a1a, type: 3}
   prefabName: EnemyDudeMask
-  numberOfPrefabsToCreate: 4
-  spawnPointList:
-  - {x: -14.35, y: 8.21}
-  - {x: 2.27, y: 14}
-  - {x: 15.21, y: 2.31}
-  - {x: 19.59, y: 0.42}
+  qtdPrefabsOnWaves: 5
+  secondsBetweenWaves: 5
