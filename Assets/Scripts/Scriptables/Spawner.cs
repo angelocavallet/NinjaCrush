@@ -18,7 +18,7 @@ public class Spawner: ScriptableObject
     {
         if (spawnerGameObject.transform.childCount == 0) {
             throw new Exception($"The GameObject ${spawnerGameObject.name} has no children gameObjects to load as SpawnPoint");
-        } 
+        }
 
         for (int i = 0; i < spawnerGameObject.transform.childCount; i++)
         {

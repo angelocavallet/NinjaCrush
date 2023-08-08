@@ -4,11 +4,18 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
-    public const string TAG_GROUND = "Ground"; 
+    public const string TAG_GROUND = "Ground";
 
+    [Header("Scriptable Objects")]
     [SerializeField] private LandMover playerLandMover;
+    //[SerializeField] private Weapon playerWeapon;
+
+    [Header("Inputs")]
     [SerializeField] private InputAction moveInput;
     [SerializeField] private InputAction jumpInput;
+    [SerializeField] private InputAction aimInput;
+
+    private WeaponController playerWeaponController;
 
     public void Awake()
     {
@@ -16,12 +23,14 @@ public class PlayerController : MonoBehaviour
         playerLandMover.SetRigidbody2D(GetComponent<Rigidbody2D>());
         playerLandMover.SetSpriteRenderer(GetComponent<SpriteRenderer>());
         playerLandMover.SetAnimator(GetComponent<Animator>());
+        playerWeaponController = GetComponentInChildren<WeaponController>();
     }
 
     public void Start()
     {
         moveInput.Enable();
         jumpInput.Enable();
+        aimInput.Enable();
         playerLandMover.EnableDebug();
     }
 
@@ -35,6 +44,9 @@ public class PlayerController : MonoBehaviour
     {
         if (jumpInput.triggered) playerLandMover.Jump();
         playerLandMover.UpdateAnimation();
+
+        playerWeaponController.SetAimWeapon(Camera.main.ScreenToWorldPoint(aimInput.ReadValue<Vector2>()));
+
     }
 
     void OnCollisionStay2D(Collision2D col)

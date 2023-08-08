@@ -58,9 +58,9 @@ public class LandMover : ScriptableObject
         {
             jumpTrigger = false;
 
-            if (IsGrounded() || (doubleJumpCharged && hasDoubleJump))
+            if (IsGrounded() || IsOverSomething() || (doubleJumpCharged && hasDoubleJump))
             {
-                doubleJumpCharged = IsGrounded();
+                doubleJumpCharged = IsGrounded() || IsOverSomething();
                 velocity.y += jumpForce;
             }
         }
@@ -74,9 +74,9 @@ public class LandMover : ScriptableObject
         if (moving) spriteRenderer.flipX = velocity.normalized.x < 0.1f;
 
         animator.SetBool(ANIM_MOVING, moving);
-        animator.SetBool(ANIM_GROUNDED, IsGrounded());
+        animator.SetBool(ANIM_GROUNDED, IsGrounded() || IsOverSomething());
 
-        if (!IsGrounded() && Math.Abs(velocity.y) > 0.1f)
+        if (!IsGrounded() && !IsOverSomething() && Math.Abs(velocity.y) > 0.1f)
         {
             animator.SetBool(ANIM_FALLING, velocity.y < 0.1f);
             animator.SetBool(ANIM_JUMPING, velocity.y > 0.1f);
