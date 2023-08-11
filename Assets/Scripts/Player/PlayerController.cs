@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputAction moveInput;
     [SerializeField] private InputAction jumpInput;
     [SerializeField] private InputAction aimInput;
+    [SerializeField] private InputAction throwInput;
 
     private WeaponController playerWeaponController;
 
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
         moveInput.Enable();
         jumpInput.Enable();
         aimInput.Enable();
+        throwInput.Enable();
         playerLandMover.EnableDebug();
     }
 
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
     public void Update()
     {
         if (jumpInput.triggered) playerLandMover.Jump();
+        if (throwInput.triggered) playerWeaponController.Shoot();
         playerLandMover.UpdateAnimation();
 
         playerWeaponController.SetAimWeapon(Camera.main.ScreenToWorldPoint(aimInput.ReadValue<Vector2>()));

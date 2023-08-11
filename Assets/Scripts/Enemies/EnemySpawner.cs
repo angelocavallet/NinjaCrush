@@ -5,7 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public Spawner enemySpawner;
 
-    void Start()
+    public void Start()
     {
         enemySpawner.DiscoverSpawnPoints(gameObject);
         StartCoroutine("SpawnEnemy");
