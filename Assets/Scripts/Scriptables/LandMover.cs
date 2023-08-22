@@ -1,9 +1,5 @@
-using Cinemachine.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "NewLandMover", menuName = "Movements/LandMover")]
 public class LandMover : ScriptableObject
@@ -22,6 +18,7 @@ public class LandMover : ScriptableObject
     [SerializeField] private String ANIM_JUMPING = "Jumping";
     [SerializeField] private String ANIM_FALLING = "Falling";
     [SerializeField] private String ANIM_GROUNDED = "Grounded";
+    [SerializeField] private String ANIM_HURT = "Hurt";
 
     private Rigidbody2D rigidbody2D;
     private Animator animator;
@@ -31,6 +28,7 @@ public class LandMover : ScriptableObject
     private float xdir;
     private bool jumpTrigger;
     private bool doubleJumpCharged;
+    private bool hurtTrigger;
     private bool moving;
     private Vector2 groundTouchDirCheck;
     private Vector2 otherTouchDirCheck;
@@ -70,6 +68,10 @@ public class LandMover : ScriptableObject
 
     public void UpdateAnimation()
     {
+        if (hurtTrigger)
+        {
+            animator.SetTrigger(ANIM_HURT);
+        }
 
         if (moving) spriteRenderer.flipX = velocity.normalized.x < 0.1f;
 
@@ -115,6 +117,11 @@ public class LandMover : ScriptableObject
     public void Jump()
     {
         jumpTrigger = true;
+    }
+
+    public void Hurt()
+    {
+        hurtTrigger = true;
     }
 
     public Boolean IsGrounded()

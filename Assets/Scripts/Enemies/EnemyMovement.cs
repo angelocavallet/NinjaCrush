@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public const string TAG_GROUND = "Ground";
+    public const string TAG_BULLET = "Bullet";
 
     [SerializeField] private LandMover enemyLandMover;
 
@@ -52,6 +53,14 @@ public class EnemyMovement : MonoBehaviour
     {
         if (jumpTrigger) enemyLandMover.Jump();
         enemyLandMover.UpdateAnimation();
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.otherCollider.transform.CompareTag(TAG_BULLET))
+        {
+            enemyLandMover.Hurt();
+        }
     }
 
     void OnCollisionStay2D(Collision2D col)

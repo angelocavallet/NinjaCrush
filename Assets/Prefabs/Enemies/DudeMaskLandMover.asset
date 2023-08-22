@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d0ec88e0997b04eba04853619f9280, type: 3}
   m_Name: DudeMaskLandMover
   m_EditorClassIdentifier: 
-  speed: 2
-  maxSpeed: 6
+  speed: 1
+  maxSpeed: 3
   jumpForce: 8
   hasDoubleJump: 0
   TAG_GROUND: Ground

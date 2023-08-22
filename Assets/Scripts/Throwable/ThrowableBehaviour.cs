@@ -6,6 +6,7 @@ public class ThrowableBehaviour : MonoBehaviour
     private GameObject effectGameObject;
     private Rigidbody2D rb2D;
     private Boolean isHited;
+    private Action<Collider2D, ThrowableBehaviour> onHitedSomethig;
 
     public void Awake()
     {
@@ -19,13 +20,27 @@ public class ThrowableBehaviour : MonoBehaviour
     {
         if (!isHited)
         {
-            Debug.Log(collider.gameObject.name);
-            isHited = true;
-            effectGameObject.SetActive(false);
-            rb2D.velocity = Vector3.zero;
-            rb2D.isKinematic = true;
-            transform.SetParent(collider.gameObject.transform);
+            onHitedSomethig(collider, this);
         }
     }
 
+    public GameObject GetEffectGameObject()
+    {
+        return effectGameObject;
+    }
+
+    public Rigidbody2D GetRigidBody2D()
+    {
+        return rb2D;
+    }
+
+    public void SetOnHitedSomething(Action<Collider2D, ThrowableBehaviour> onHitedSomething)
+    { 
+        this.onHitedSomethig = onHitedSomething;
+    }
+
+    public void SetIsHited(Boolean isHited)
+    {
+        this.isHited = isHited;
+    }
 }
