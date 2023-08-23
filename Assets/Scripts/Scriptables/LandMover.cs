@@ -5,9 +5,11 @@ using UnityEngine;
 public class LandMover : ScriptableObject
 {
     [Header("Physics Settings")]
+    [SerializeField] private float life;
     [SerializeField] private float speed;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private float recoverColdown;
     [SerializeField] private bool hasDoubleJump;
 
     [Header("Collision Tags")]
@@ -24,14 +26,17 @@ public class LandMover : ScriptableObject
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    private Vector2 velocity;
     private float xdir;
+    private float recoveringTime;
     private bool jumpTrigger;
     private bool doubleJumpCharged;
     private bool hurtTrigger;
+    private bool dead;
     private bool moving;
+    private Vector2 velocity;
     private Vector2 groundTouchDirCheck;
     private Vector2 otherTouchDirCheck;
+
     private bool debugEnabled = false;
 
     public void UpdateMovement()
@@ -70,7 +75,22 @@ public class LandMover : ScriptableObject
     {
         if (hurtTrigger)
         {
-            animator.SetTrigger(ANIM_HURT);
+            if (recoveringTime == 0f)
+            {
+                animator.SetTrigger(ANIM_HURT);
+                xdir = 0f;
+                velocity = Vector2.zero;
+                rigidbody2D.AddForce(Vector2.up * jumpForce);
+            }
+
+            recoveringTime += Time.deltaTime;
+
+            if (recoveringTime > recoverColdown)
+            {
+                recoveringTime = 0f;
+                hurtTrigger = false;
+                xdir = -1f;
+            }
         }
 
         if (moving) spriteRenderer.flipX = velocity.normalized.x < 0.1f;
@@ -119,10 +139,18 @@ public class LandMover : ScriptableObject
         jumpTrigger = true;
     }
 
-    public void Hurt()
+    public void Hurt(float damage)
     {
         hurtTrigger = true;
+        recoveringTime = 0f;
+        life -= damage;
+
+        if (life < 0f)
+        {
+            dead = true;
+        }
     }
+
 
     public Boolean IsGrounded()
     {
@@ -142,6 +170,11 @@ public class LandMover : ScriptableObject
     public Boolean IsOverSomething()
     {
         return otherTouchDirCheck.y == Vector2.down.y;
+    }
+
+    public Boolean IsDead()
+    {
+        return dead;
     }
 
     public void SetRigidbody2D(Rigidbody2D rb2D)

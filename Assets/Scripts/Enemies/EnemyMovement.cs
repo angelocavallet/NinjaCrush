@@ -8,8 +8,6 @@ public class EnemyMovement : MonoBehaviour
 
     [SerializeField] private LandMover enemyLandMover;
 
-    private bool jumpTrigger = false;
-
     public void Awake()
     {
         enemyLandMover = enemyLandMover.Clone();
@@ -32,6 +30,7 @@ public class EnemyMovement : MonoBehaviour
     {
 
         enemyLandMover.UpdateMovement();
+        enemyLandMover.UpdateAnimation();
 
         if (enemyLandMover.IsWalled())
         {
@@ -47,29 +46,26 @@ public class EnemyMovement : MonoBehaviour
         {
             enemyLandMover.Jump();
         }
-    }
 
-    public void Update()
-    {
-        if (jumpTrigger) enemyLandMover.Jump();
-        enemyLandMover.UpdateAnimation();
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.otherCollider.transform.CompareTag(TAG_BULLET))
+        if (enemyLandMover.IsDead())
         {
-            enemyLandMover.Hurt();
+            Destroy(gameObject);
         }
     }
 
-    void OnCollisionStay2D(Collision2D col)
+    public void OnCollisionStay2D(Collision2D col)
     {
         enemyLandMover.updateCollisionStay2D(col);
     }
 
-    void OnCollisionExit2D(Collision2D col)
+    public void OnCollisionExit2D(Collision2D col)
     {
         enemyLandMover.updateCollisionExit(col);
     }
+
+    public void Hurt(float damage)
+    {
+        enemyLandMover.Hurt(damage);
+    }
+
 }

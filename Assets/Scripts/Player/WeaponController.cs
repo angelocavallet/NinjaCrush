@@ -6,18 +6,19 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private Throwable throwable;
     private Vector2 aimDirection;
     private float nextFire = 0f;
+    private const string TAG_ENEMY = "Enemy";
 
     public void Awake()
     {
         throwable.SetOnHitedSomething((Collider2D collider, ThrowableBehaviour throwableBehaviour) => {
-            if (!collider.gameObject.CompareTag(throwableBehaviour.tag))
+            Debug.Log($"PORRA ACERTEI UM {collider.transform.tag}");
+
+            if (collider.transform.CompareTag(TAG_ENEMY))
             {
-                throwableBehaviour.SetIsHited(true);
-                throwableBehaviour.GetEffectGameObject().SetActive(false);
-                throwableBehaviour.GetRigidBody2D().velocity = Vector3.zero;
-                throwableBehaviour.GetRigidBody2D().isKinematic = true;
-                throwableBehaviour.transform.SetParent(collider.gameObject.transform);
+                collider.GetComponent<EnemyMovement>().Hurt(throwable.GetDamage());
+
             }
+
         });
     }
 

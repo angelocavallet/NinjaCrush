@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d0ec88e0997b04eba04853619f9280, type: 3}
   m_Name: PlayerLandMover
   m_EditorClassIdentifier: 
+  life: 10
   speed: 2
   maxSpeed: 10
   jumpForce: 18
+  recoverColdown: 1
   hasDoubleJump: 1
   TAG_GROUND: Ground
   ANIM_MOVING: Moving
   ANIM_JUMPING: Jumping
   ANIM_FALLING: Falling
   ANIM_GROUNDED: Grounded
+  ANIM_HURT: Hurt

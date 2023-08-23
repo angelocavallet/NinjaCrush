@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabThrow: {fileID: 5646778479584160188, guid: 695120fb7b7e7db4d8baa90858ae473c, type: 3}
   prefabName: kunaiThrowed
-  throwForce: 15
-  fireRateSeconds: 1
+  throwForce: 30
+  fireRateSeconds: 0.2
+  damage: 7

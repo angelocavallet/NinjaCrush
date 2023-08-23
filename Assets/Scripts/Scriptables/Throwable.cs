@@ -8,6 +8,7 @@ public class Throwable : ScriptableObject
     [SerializeField] private string prefabName;
     [SerializeField] private int throwForce;
     [SerializeField] private float fireRateSeconds;
+    [SerializeField] private float damage;
 
     private int instanceNumber = 1;
     private Action<Collider2D,ThrowableBehaviour> onHitedSomething;
@@ -25,6 +26,11 @@ public class Throwable : ScriptableObject
     public float GetFireRateSeconds()
     {
         return fireRateSeconds;
+    }
+
+    public float GetDamage()
+    {
+        return damage;
     }
 
     public void SetOnHitedSomething(Action<Collider2D,ThrowableBehaviour> onHitedSomething)
