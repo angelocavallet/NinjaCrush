@@ -1,0 +1,15 @@
+{
+    "name": "Plataforma2D",
+    "short_name": "Plataforma2D",
+    "start_url": "index.html",
+    "display": "fullscreen",
+    "background_color": "#CCCCCC",
+    "theme_color": "#fff",
+    "description": "",
+    "icons": [{
+      "src": "TemplateData/icons/unity-logo-light.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }]
+  }
