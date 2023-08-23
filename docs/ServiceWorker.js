@@ -1,4 +1,4 @@
-const cacheName = "DefaultCompany-Plataforma2D-1.0";
+const cacheName = "MiojoGames-Ninja Crush-0.1";
 const contentToCache = [
     "Build/docs.loader.js",
     "Build/docs.framework.js",
