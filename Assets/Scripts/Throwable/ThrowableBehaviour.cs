@@ -13,7 +13,9 @@ public class ThrowableBehaviour : MonoBehaviour
     private AudioSource audioSource;
     private Boolean isHited;
     private Action<Collider2D, ThrowableBehaviour> onHitedSomethig;
+    private const string TAG_PLAYER = "Player";
     private const string TAG_ENEMY = "Enemy";
+    private const string TAG_BULLET = "Bullet";
 
     public void Awake()
     {
@@ -28,15 +30,25 @@ public class ThrowableBehaviour : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!isHited)
+        if (!isHited && !collider.CompareTag(TAG_BULLET) && !collider.CompareTag(TAG_PLAYER))
         {
+            //@todo change hit audios to hurted GameObjects (Enemy, Ground) and check for component to play audio from them
             audioSource.clip = collider.transform.CompareTag(TAG_ENEMY) ? hitTargetAudioClip : hitSomethingAudioClip;
             audioSource.Play();
 
             SetIsHited(true);
 
-            transform.SetParent(collider.gameObject.transform);
+            transform.SetParent(collider.transform);
             onHitedSomethig(collider, this);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (!isHited)
+        {
+            float angle = Mathf.Atan2(rb2D.velocity.y, rb2D.velocity.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
 

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "new Throwable", menuName = "Throwable")]
 public class Throwable : ScriptableObject
@@ -15,10 +16,13 @@ public class Throwable : ScriptableObject
 
     public void ThrowNew(Transform originTransform, Vector2 dirVelocity)
     {
-        GameObject currentEntity = Instantiate(prefabThrow, originTransform.position, originTransform.rotation);
-        currentEntity.name = prefabName + instanceNumber;
-        currentEntity.GetComponent<Rigidbody2D>().velocity = dirVelocity * throwForce;
-        currentEntity.GetComponent<ThrowableBehaviour>().SetOnHitedSomething(onHitedSomething);
+        float angle = Mathf.Atan2(dirVelocity.y, dirVelocity.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        GameObject throwedEntity = Instantiate(prefabThrow, originTransform.position, rotation);
+
+        throwedEntity.name = prefabName + instanceNumber;
+        throwedEntity.GetComponent<Rigidbody2D>().velocity = dirVelocity * throwForce;
+        throwedEntity.GetComponent<ThrowableBehaviour>().SetOnHitedSomething(onHitedSomething);
 
         instanceNumber++;
     }

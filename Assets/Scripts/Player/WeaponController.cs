@@ -11,7 +11,7 @@ public class WeaponController : MonoBehaviour
     public void Awake()
     {
         throwable.SetOnHitedSomething((Collider2D collider, ThrowableBehaviour throwableBehaviour) => {
-            Debug.Log($"PORRA ACERTEI UM {collider.transform.tag}");
+            //Debug.Log($"ACERTEI UM {collider.transform.tag}");
 
             if (collider.transform.CompareTag(TAG_ENEMY))
             {
