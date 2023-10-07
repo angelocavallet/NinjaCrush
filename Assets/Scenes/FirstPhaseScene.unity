@@ -239,7 +239,6 @@ GameObject:
   m_Component:
   - component: {fileID: 168626717}
   - component: {fileID: 168626716}
-  - component: {fileID: 168626715}
   - component: {fileID: 168626714}
   - component: {fileID: 168626718}
   m_Layer: 0
@@ -283,14 +282,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!81 &168626715
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168626713}
-  m_Enabled: 1
 --- !u!20 &168626716
 Camera:
   m_ObjectHideFlags: 0
@@ -93593,6 +93584,19 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 959927067}
   m_Damping: 1
   m_MaxWindowSize: -1
+--- !u!1 &1705439329 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4405130907265473844, guid: ceaa5ce5bdaed96449469d32411246ee, type: 3}
+  m_PrefabInstance: {fileID: 739184773929646179}
+  m_PrefabAsset: {fileID: 0}
+--- !u!81 &1705439335
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705439329}
+  m_Enabled: 1
 --- !u!1 &1885902003
 GameObject:
   m_ObjectHideFlags: 3
@@ -93950,7 +93954,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3241286703480596520, guid: ceaa5ce5bdaed96449469d32411246ee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 453635026}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4405130907265473844, guid: ceaa5ce5bdaed96449469d32411246ee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1705439335}
   m_SourcePrefab: {fileID: 100100000, guid: ceaa5ce5bdaed96449469d32411246ee, type: 3}
 --- !u!1001 &3909843126983666438
 PrefabInstance:
