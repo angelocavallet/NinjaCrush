@@ -554,6 +554,7 @@ SpriteAtlas:
     - 3d6be91968cb95546ac95aeff5e52f84: -7347827468922994342
     - 3d6be91968cb95546ac95aeff5e52f84: 7538113517902980163
     - 3d6be91968cb95546ac95aeff5e52f84: 3052119051097735194
+    - 059fc7295556bd04c9ef2b98d8cafba8: 21300000
     - f7472d29deaa7414abffd38318319096: 21300000
     - d9c5a449db91d51488798b761c22fb97: 21300000
     - af34cad9a50a94c42b0907fd58d6f99c: 21300000
@@ -1303,6 +1304,7 @@ SpriteAtlas:
   - {fileID: -7347827468922994342, guid: 3d6be91968cb95546ac95aeff5e52f84, type: 3}
   - {fileID: 7538113517902980163, guid: 3d6be91968cb95546ac95aeff5e52f84, type: 3}
   - {fileID: 3052119051097735194, guid: 3d6be91968cb95546ac95aeff5e52f84, type: 3}
+  - {fileID: 21300000, guid: 059fc7295556bd04c9ef2b98d8cafba8, type: 3}
   - {fileID: 21300000, guid: f7472d29deaa7414abffd38318319096, type: 3}
   - {fileID: 21300000, guid: d9c5a449db91d51488798b761c22fb97, type: 3}
   - {fileID: 21300000, guid: af34cad9a50a94c42b0907fd58d6f99c, type: 3}
@@ -2051,6 +2053,7 @@ SpriteAtlas:
   - Cherries_16
   - Cherries_9
   - Cherries_8
+  - blood
   - Idle
   - Chain
   - Transition

@@ -230,6 +230,8 @@ MonoBehaviour:
   throwAudioClip: {fileID: 8300000, guid: 2674447f662fe1b46bbf0a3d4fc75643, type: 3}
   hitTargetAudioClip: {fileID: 8300000, guid: cb60d64e8dfe0d74e81e12b24e3bbf7c, type: 3}
   hitSomethingAudioClip: {fileID: 8300000, guid: 91b0a47fab37ac447bc3d3b0a2df14c4, type: 3}
+  effectGameObject: {fileID: 1473826590290511832}
+  hitEffectGameObject: {fileID: 2375770460129796568, guid: a7e68163dbbbd3e4197a73588066ec27, type: 3}
 --- !u!82 &5603450103445334577
 AudioSource:
   m_ObjectHideFlags: 0

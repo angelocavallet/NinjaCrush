@@ -7,7 +7,9 @@ public class ThrowableBehaviour : MonoBehaviour
     [SerializeField] private AudioClip hitTargetAudioClip;
     [SerializeField] private AudioClip hitSomethingAudioClip;
 
-    private GameObject effectGameObject;
+    [SerializeField] private GameObject effectGameObject;
+    [SerializeField] private GameObject hitEffectGameObject;
+
     private Rigidbody2D rb2D;
     private Collider2D col2D;
     private AudioSource audioSource;
@@ -19,7 +21,6 @@ public class ThrowableBehaviour : MonoBehaviour
 
     public void Awake()
     {
-        effectGameObject = transform.GetChild(0).gameObject;
         rb2D = GetComponent<Rigidbody2D>();
         col2D = GetComponent<Collider2D>();
         audioSource = GetComponent<AudioSource>();
@@ -74,5 +75,11 @@ public class ThrowableBehaviour : MonoBehaviour
         rb2D.velocity = Vector3.zero;
         rb2D.isKinematic = true;
         col2D.enabled = false;
+    }
+
+    public void Bleed()
+    {
+        GameObject blood = Instantiate(hitEffectGameObject, transform.position, transform.rotation);
+        blood.transform.SetParent(transform);
     }
 }

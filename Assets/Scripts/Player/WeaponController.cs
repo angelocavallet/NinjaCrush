@@ -16,7 +16,7 @@ public class WeaponController : MonoBehaviour
             if (collider.transform.CompareTag(TAG_ENEMY))
             {
                 collider.GetComponent<EnemyMovement>().Hurt(throwable.GetDamage());
-
+                throwableBehaviour.Bleed();
             }
 
         });
