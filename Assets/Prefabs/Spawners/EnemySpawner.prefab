@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8818316737183539433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a0345cdad197c44a9874d228697c2ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 98898be3b2df538448fc450ad11ac4a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawner: {fileID: 11400000, guid: 2cda4c64bfb4a9f4883e9606836b41f1, type: 2}
+  enemySpawnManager: {fileID: 11400000, guid: 2cda4c64bfb4a9f4883e9606836b41f1, type: 2}

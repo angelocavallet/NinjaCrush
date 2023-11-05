@@ -190,7 +190,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7303306152223621682}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af2ad8722cc190d448418ecdf0892a83, type: 3}
+  m_Script: {fileID: 11500000, guid: a9d61011a7f73db4f91dde1d4075e705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyLandMover: {fileID: 11400000, guid: 7be225b44f6181541915f318ef9ba4df, type: 2}

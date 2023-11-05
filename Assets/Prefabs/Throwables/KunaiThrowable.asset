@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e59970dc2be96d4bbfbbf53f48b8c54, type: 3}
   m_Name: KunaiThrowable
   m_EditorClassIdentifier: 
-  prefabThrow: {fileID: 5403629240621340962, guid: 695120fb7b7e7db4d8baa90858ae473c, type: 3}
-  prefabName: kunaiThrowed
-  throwForce: 15
-  fireRateSeconds: 0.2
+  namePrefab: KunaiThrowed
+  throwablePrefab: {fileID: 5403629240621340962, guid: 695120fb7b7e7db4d8baa90858ae473c, type: 3}
+  mass: 0.1
   damage: 7
+  lifeTimeSeconds: 50
+  throwEffectPrefab: {fileID: 4135206969941052617, guid: b5a3ad9ec7b366b49a5331eae1b6c548, type: 3}
+  hitTargetEffectPrefab: {fileID: 8719900064538854672, guid: 6ee6a912d231353478287bdd0fc6b018, type: 3}
+  hitOtherEffectPrefab: {fileID: 4135206969941052617, guid: b5a3ad9ec7b366b49a5331eae1b6c548, type: 3}
+  throwAudioClip: {fileID: 8300000, guid: 2674447f662fe1b46bbf0a3d4fc75643, type: 3}
+  hitTargetAudioClip: {fileID: 8300000, guid: cb60d64e8dfe0d74e81e12b24e3bbf7c, type: 3}
+  hitOtherAudioClip: {fileID: 8300000, guid: 91b0a47fab37ac447bc3d3b0a2df14c4, type: 3}

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewLandMover", menuName = "Movements/LandMover")]
+[CreateAssetMenu(fileName = "new LandMover", menuName = "ScriptableObjects/Movements/LandMover")]
 public class LandMover : ScriptableObject
 {
     [Header("Physics Settings")]
@@ -11,6 +11,7 @@ public class LandMover : ScriptableObject
     [SerializeField] private float jumpForce;
     [SerializeField] private float recoverColdown;
     [SerializeField] private bool hasDoubleJump;
+    [SerializeField] private bool hasWallJump;
 
     [Header("Collision Tags")]
     [SerializeField] private String TAG_GROUND = "Ground";
@@ -22,11 +23,13 @@ public class LandMover : ScriptableObject
     [SerializeField] private String ANIM_GROUNDED = "Grounded";
     [SerializeField] private String ANIM_HURT = "Hurt";
 
-    private Rigidbody2D rigidbody2D;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
+    public float xdir;
+    public Rigidbody2D rigidbody2D { private get; set; }
+    public Animator animator { private get; set; }
+    public SpriteRenderer spriteRenderer { private get; set; }
+    public Vector2 groundTouchDirCheck { get; private set; }
+    public Vector2 otherTouchDirCheck { get; private set; }
 
-    private float xdir;
     private float recoveringTime;
     private bool jumpTrigger;
     private bool doubleJumpCharged;
@@ -34,10 +37,11 @@ public class LandMover : ScriptableObject
     private bool dead;
     private bool moving;
     private Vector2 velocity;
-    private Vector2 groundTouchDirCheck;
-    private Vector2 otherTouchDirCheck;
 
-    private bool debugEnabled = false;
+    public LandMover Clone()
+    {
+        return Instantiate(this);
+    }
 
     public void UpdateMovement()
     {
@@ -61,9 +65,9 @@ public class LandMover : ScriptableObject
         {
             jumpTrigger = false;
 
-            if (IsGrounded() || IsOverSomething() || (doubleJumpCharged && hasDoubleJump))
+            if (CanJump())
             {
-                doubleJumpCharged = IsGrounded() || IsOverSomething();
+                doubleJumpCharged = IsGrounded() || IsOverSomething() || IsWalled();
                 velocity.y += jumpForce;
             }
         }
@@ -73,14 +77,25 @@ public class LandMover : ScriptableObject
 
     public void UpdateAnimation()
     {
+        if (moving) spriteRenderer.flipX = velocity.normalized.x < 0.1f;
+
+        animator.SetBool(ANIM_MOVING, moving);
+        animator.SetBool(ANIM_GROUNDED, IsGrounded() || IsOverSomething());
+
+        if (!IsGrounded() && !IsOverSomething() && Math.Abs(velocity.y) > 0.1f)
+        {
+            animator.SetBool(ANIM_FALLING, velocity.y < 0.1f);
+            animator.SetBool(ANIM_JUMPING, velocity.y > 0.1f);
+        }
+
         if (hurtTrigger)
         {
+            //@Todo change this to "die" animation
             if (recoveringTime == 0f)
             {
                 animator.SetTrigger(ANIM_HURT);
                 xdir = 0f;
                 velocity = Vector2.zero;
-                rigidbody2D.AddForce(Vector2.up * jumpForce);
             }
 
             recoveringTime += Time.deltaTime;
@@ -92,32 +107,21 @@ public class LandMover : ScriptableObject
                 xdir = -1f;
             }
         }
-
-        if (moving) spriteRenderer.flipX = velocity.normalized.x < 0.1f;
-
-        animator.SetBool(ANIM_MOVING, moving);
-        animator.SetBool(ANIM_GROUNDED, IsGrounded() || IsOverSomething());
-
-        if (!IsGrounded() && !IsOverSomething() && Math.Abs(velocity.y) > 0.1f)
-        {
-            animator.SetBool(ANIM_FALLING, velocity.y < 0.1f);
-            animator.SetBool(ANIM_JUMPING, velocity.y > 0.1f);
-        }
     }
 
-    public void updateCollisionStay2D(Collision2D col)
+    public void UpdateCollisionStay2D(Collision2D col)
     {
         if (col.gameObject.CompareTag(TAG_GROUND))
         {
-            groundTouchDirCheck = updateVector2Collision(col);
+            groundTouchDirCheck = UpdateVector2Collision(col);
         }
         else
         {
-            otherTouchDirCheck = updateVector2Collision(col);
+            otherTouchDirCheck = UpdateVector2Collision(col);
         }
     }
 
-    public void updateCollisionExit(Collision2D col)
+    public void UpdateCollisionExit(Collision2D col)
     {
         if (col.gameObject.CompareTag(TAG_GROUND))
         {
@@ -127,11 +131,6 @@ public class LandMover : ScriptableObject
         {
             otherTouchDirCheck = Vector2.zero;
         }
-    }
-
-    public void SetXDir(float xdir)
-    {
-        this.xdir = xdir;
     }
 
     public void Jump()
@@ -151,6 +150,20 @@ public class LandMover : ScriptableObject
         }
     }
 
+    public Boolean CanJump()
+    {
+        return IsGrounded() || IsOverSomething() || CanWallJump() || CanDoubleJump();
+    }
+
+    public Boolean CanWallJump()
+    {
+        return hasWallJump && IsWalled();
+    }
+
+    public Boolean CanDoubleJump()
+    {
+        return hasDoubleJump && doubleJumpCharged;
+    }
 
     public Boolean IsGrounded()
     {
@@ -177,22 +190,7 @@ public class LandMover : ScriptableObject
         return dead;
     }
 
-    public void SetRigidbody2D(Rigidbody2D rb2D)
-    {
-        rigidbody2D = rb2D;
-    }
-
-    public void SetAnimator(Animator anim)
-    {
-        animator = anim;
-    }
-
-    public void SetSpriteRenderer(SpriteRenderer sprr)
-    {
-        spriteRenderer = sprr;
-    }
-
-    private Vector2 updateVector2Collision(Collision2D col)
+    private Vector2 UpdateVector2Collision(Collision2D col)
     {
         int contactLength = col.GetContacts(col.contacts);
 
@@ -219,30 +217,5 @@ public class LandMover : ScriptableObject
         }
 
         return checkTouchDirVector2;
-    }
-
-    public Vector2 GetGroundTouchDirCheck()
-    {
-        return groundTouchDirCheck;
-    }
-
-    public Vector2 GetOtherTouchDirCheck()
-    {
-        return otherTouchDirCheck;
-    }
-    
-    public void EnableDebug()
-    {
-        debugEnabled = true;
-    }
-
-    public void ToggleDebug()
-    {
-        debugEnabled = !debugEnabled;
-    }
-
-    public LandMover Clone()
-    {
-        return Instantiate(this);
     }
 }

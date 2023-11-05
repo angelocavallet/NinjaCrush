@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c358227763cd9cf44ad53cfbe9f057ab, type: 3}
   m_Name: DudeMaskSpawner
   m_EditorClassIdentifier: 
-  entityToSpawn: {fileID: 7303306152223621682, guid: 86da8dea02b13ce40967c9cff42a4a1a, type: 3}
+  tagSpawnLocations: SpawnPoint
+  prefabToSpawn: {fileID: 7303306152223621682, guid: 86da8dea02b13ce40967c9cff42a4a1a, type: 3}
   prefabName: EnemyDudeMask
-  qtdPrefabsOnWaves: 5
-  secondsBetweenWaves: 5
+  prefabPerWave: 3
+  progressionEachWave: 1
+  secondsPerWave: 10

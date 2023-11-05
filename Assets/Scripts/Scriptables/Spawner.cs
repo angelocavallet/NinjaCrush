@@ -1,42 +1,54 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new Spawner", menuName = "Spawner")]
-public class Spawner: ScriptableObject
+[CreateAssetMenu(fileName = "new SpawnManager", menuName = "ScriptableObjects/Manager")]
+public class SpawnManager : ScriptableObject
 {
-    [SerializeField] private GameObject entityToSpawn;
+    [SerializeField] private string tagSpawnLocations;
+    [SerializeField] private GameObject prefabToSpawn;
     [SerializeField] private string prefabName;
-    [SerializeField] private int qtdPrefabsOnWaves;
-    [SerializeField] private int secondsBetweenWaves;
+    [SerializeField] private int prefabPerWave;
+    [SerializeField] private float progressionEachWave;
+    [SerializeField] private float secondsPerWave;
 
+    public Action spawnAction { private get; set; }
     private int instanceNumber = 1;
-    private List<Vector2> spawnPointList = new List<Vector2>();
+    private System.Random rand = new System.Random();
+    private List<GameObject> spawnPointList = new List<GameObject>();
+    private float nextSpawnExec = 0.0f;
+
+    public SpawnManager Clone()
+    {
+        return Instantiate(this);
+    }
 
     public void DiscoverSpawnPoints(GameObject spawnerGameObject)
     {
-        if (spawnerGameObject.transform.childCount == 0) {
-            throw new Exception($"The GameObject ${spawnerGameObject.name} has no children gameObjects to load as SpawnPoint");
-        }
+        spawnPointList = GameObject.FindGameObjectsWithTag(tagSpawnLocations).ToList<GameObject>();
 
-        for (int i = 0; i < spawnerGameObject.transform.childCount; i++)
-        {
-            spawnPointList.Add(spawnerGameObject.transform.GetChild(i).transform.position);
+        if (spawnPointList.Count == 0) throw new Exception($"Spawner -> No GameObject with ${tagSpawnLocations} tag was found :(");
+    }
 
-        }
+    public void UpdateSpawnManager()
+    {
+        if (Time.time < nextSpawnExec) return;
+        
+        nextSpawnExec += secondsPerWave;
+        if (spawnAction == null) spawnAction = SpawnEntitiesAtDistribuitedPoints;
 
+        spawnAction();
     }
 
     public void SpawnEntitiesAtRandomPoints()
     {
-        System.Random rand = new System.Random();
-
-        for (int i = 0; i < qtdPrefabsOnWaves; i++)
+        for (int i = 0; i < prefabPerWave; i++)
         {
 
-            Vector2 spawnPoint = spawnPointList[rand.Next(0, spawnPointList.Count)];
+            GameObject spawnPoint = spawnPointList[rand.Next(0, spawnPointList.Count)];
 
-            GameObject currentEntity = Instantiate(entityToSpawn, spawnPoint, Quaternion.identity);
+            GameObject currentEntity = Instantiate(prefabToSpawn, spawnPoint.transform.position, Quaternion.identity);
 
             currentEntity.name = prefabName + instanceNumber;
 
@@ -48,11 +60,11 @@ public class Spawner: ScriptableObject
     {
         int currentSpawnPointIndex = 0;
 
-        for (int i = 0; i < qtdPrefabsOnWaves; i++)
+        for (int i = 0; i < prefabPerWave; i++)
         {
-            Vector2 spawnPoint = spawnPointList[currentSpawnPointIndex];
+            GameObject spawnPoint = spawnPointList[currentSpawnPointIndex];
 
-            GameObject currentEntity = Instantiate(entityToSpawn, spawnPoint, Quaternion.identity);
+            GameObject currentEntity = Instantiate(prefabToSpawn, spawnPoint.transform.position, Quaternion.identity);
 
             currentEntity.name = prefabName + instanceNumber;
 
@@ -60,10 +72,5 @@ public class Spawner: ScriptableObject
 
             instanceNumber++;
         }
-    }
-
-    public int GetSecondsBetweenWaves()
-    {
-        return secondsBetweenWaves;
     }
 }

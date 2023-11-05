@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Enemy
   - Bullet
+  - SpawnPoint
+  - Blood
   layers:
   - Default
   - TransparentFX
@@ -56,12 +58,12 @@ TagManager:
   - name: Throwable
     uniqueID: 3202279151
     locked: 0
+  - name: Foreground
+    uniqueID: 3636989215
+    locked: 0
   - name: Weapon
     uniqueID: 993700409
     locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Foreground
-    uniqueID: 3636989215
     locked: 0

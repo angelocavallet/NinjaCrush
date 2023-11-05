@@ -17,7 +17,8 @@ MonoBehaviour:
   maxSpeed: 3
   jumpForce: 8
   recoverColdown: 1
-  hasDoubleJump: 0
+  hasDoubleJump: 1
+  hasWallJump: 1
   TAG_GROUND: Ground
   ANIM_MOVING: Moving
   ANIM_JUMPING: Jumping
