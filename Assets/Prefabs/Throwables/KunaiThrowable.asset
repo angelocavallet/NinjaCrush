@@ -17,7 +17,7 @@ MonoBehaviour:
   mass: 0.1
   damage: 7
   lifeTimeSeconds: 50
-  throwEffectPrefab: {fileID: 4135206969941052617, guid: b5a3ad9ec7b366b49a5331eae1b6c548, type: 3}
+  throwEffectPrefab: {fileID: 4135206969941052617, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
   hitTargetEffectPrefab: {fileID: 8719900064538854672, guid: 6ee6a912d231353478287bdd0fc6b018, type: 3}
   hitOtherEffectPrefab: {fileID: 4135206969941052617, guid: b5a3ad9ec7b366b49a5331eae1b6c548, type: 3}
   throwAudioClip: {fileID: 8300000, guid: 2674447f662fe1b46bbf0a3d4fc75643, type: 3}

@@ -4,8 +4,8 @@ using UnityEngine;
 public class BloodParticleController : MonoBehaviour
 {
     [SerializeField] private GameObject bloodPoint;
-    private int minOffsetIntersection = 10;
-    private int maxOffsetIntersection = 40;
+    private int minOffsetIntersection = 20;
+    private int maxOffsetIntersection = 60;
     private ParticleSystem _particleSystem;
     private List<ParticleCollisionEvent> collisionEvents;
     private System.Random rand = new System.Random();
