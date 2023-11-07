@@ -18,9 +18,11 @@ MonoBehaviour:
   jumpForce: 18
   recoverColdown: 1
   hasDoubleJump: 1
+  hasWallJump: 1
   TAG_GROUND: Ground
   ANIM_MOVING: Moving
   ANIM_JUMPING: Jumping
   ANIM_FALLING: Falling
   ANIM_GROUNDED: Grounded
   ANIM_HURT: Hurt
+  xdir: 0

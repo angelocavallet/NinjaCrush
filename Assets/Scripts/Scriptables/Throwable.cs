@@ -99,7 +99,7 @@ public class Throwable : ScriptableObject
         {
             audioSource.clip = hitTargetAudioClip;
             audioSource.Play();
-            Instantiate(hitTargetEffectPrefab, transform.position, transform.rotation, transform);
+            Instantiate(hitTargetEffectPrefab, transform.position, Quaternion.identity, transform);
             onHitedTarget(otherCollider2D, this);
             return;
         }

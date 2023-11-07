@@ -30,10 +30,9 @@ public class LandMover : ScriptableObject
     public Vector2 groundTouchDirCheck { get; private set; }
     public Vector2 otherTouchDirCheck { get; private set; }
 
-    private float recoveringTime;
     private bool jumpTrigger;
-    private bool doubleJumpCharged;
-    private bool hurtTrigger;
+    private bool doubleJumpCharged = false;
+    private bool dieTrigger;
     private bool dead;
     private bool moving;
     private Vector2 velocity;
@@ -67,7 +66,7 @@ public class LandMover : ScriptableObject
 
             if (CanJump())
             {
-                doubleJumpCharged = IsGrounded() || IsOverSomething() || IsWalled();
+                doubleJumpCharged = IsGrounded() || IsOverSomething() || CanWallJump();
                 velocity.y += jumpForce;
             }
         }
@@ -88,24 +87,12 @@ public class LandMover : ScriptableObject
             animator.SetBool(ANIM_JUMPING, velocity.y > 0.1f);
         }
 
-        if (hurtTrigger)
+        if (dieTrigger)
         {
-            //@Todo change this to "die" animation
-            if (recoveringTime == 0f)
-            {
-                animator.SetTrigger(ANIM_HURT);
-                xdir = 0f;
-                velocity = Vector2.zero;
-            }
-
-            recoveringTime += Time.deltaTime;
-
-            if (recoveringTime > recoverColdown)
-            {
-                recoveringTime = 0f;
-                hurtTrigger = false;
-                xdir = -1f;
-            }
+            animator.SetTrigger(ANIM_HURT);
+            xdir = 0f;
+            velocity = Vector2.zero;
+            dieTrigger = false;
         }
     }
 
@@ -140,13 +127,13 @@ public class LandMover : ScriptableObject
 
     public void Hurt(float damage)
     {
-        hurtTrigger = true;
-        recoveringTime = 0f;
         life -= damage;
 
         if (life < 0f)
         {
+            dieTrigger = true;
             dead = true;
+            Destroy(this, 1f);
         }
     }
 
