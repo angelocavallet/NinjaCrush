@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 
     public void Awake()
     {
+        if (GameManager.instance) GameManager.instance.playerInput = playerInput;
+
         playerLandMover = playerLandMover.Clone();
         playerLandMover.rigidbody2D = GetComponent<Rigidbody2D>();
         playerLandMover.spriteRenderer = GetComponent<SpriteRenderer>();

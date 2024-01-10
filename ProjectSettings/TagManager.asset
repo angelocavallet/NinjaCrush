@@ -46,6 +46,9 @@ TagManager:
   - name: Background
     uniqueID: 3700444453
     locked: 0
+  - name: CaveBackground
+    uniqueID: 3896045093
+    locked: 0
   - name: Ground
     uniqueID: 4180715083
     locked: 0

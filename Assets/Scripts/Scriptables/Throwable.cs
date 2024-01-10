@@ -24,7 +24,14 @@ public class Throwable : ScriptableObject
 
     public Rigidbody2D rigidbody2D { private get; set; }
     public Collider2D collider2D { private get; set; }
-    public AudioSource audioSource { private get; set; }
+    public AudioSource audioSource {
+        private get => _audioSource;
+        set
+        {
+            _audioSource = value;
+            SoundManager.instance.RegisterSfxSource(value);
+        } 
+    }
     public Transform transform { private get; set; }
     public Action<Throwable> onThrowed { private get; set; }
     public Action<Collider2D, Throwable> onHitedTarget { private get; set; }
@@ -33,6 +40,7 @@ public class Throwable : ScriptableObject
     public string selfThrowerTag { private get; set; }
     public string selfTag { private get; set; }
 
+    private AudioSource _audioSource;
     private Boolean isHited = false;
     private int instanceNumber = 1;
     private float timeToDie = 0f;
@@ -76,6 +84,7 @@ public class Throwable : ScriptableObject
         {
             if (Time.time > timeToDie)
             {
+                SoundManager.instance.UnregisterSfxSource(_audioSource);
                 Destroy(transform.gameObject);
             }
         }

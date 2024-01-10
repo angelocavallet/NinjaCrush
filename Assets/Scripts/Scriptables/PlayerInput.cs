@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +10,16 @@ public class PlayerInput: ScriptableObject
     [SerializeField] private InputAction jumpInput;
     [SerializeField] private InputAction aimInput;
     [SerializeField] private InputAction throwInput;
+
+    //@todo create InputManager
+    public static PlayerInput instance
+    {
+        get => _instance;
+        //private 
+            set => _instance = value;
+    }
+
+    private static PlayerInput _instance;
 
     public void EnableInputs()
     {

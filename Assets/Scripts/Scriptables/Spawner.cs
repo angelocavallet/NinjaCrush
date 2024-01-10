@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new SpawnManager", menuName = "ScriptableObjects/Manager")]
+[CreateAssetMenu(fileName = "new SpawnManager", menuName = "ScriptableObjects/SpawnManager")]
 public class SpawnManager : ScriptableObject
 {
     [SerializeField] private string tagSpawnLocations;
