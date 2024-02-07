@@ -37,21 +37,22 @@ public class PlayerController : MonoBehaviour
         playerInput.EnableInputs();
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
         if (playerInput.isThrowPressed()) playerWeapon.Throw();
         if (playerInput.isJumpPressed()) playerLandMover.Jump();
 
         playerLandMover.xdir = playerInput.GetMoveXDir();
-        playerLandMover.UpdateMovement();
-    }
 
-    public void Update()
-    {
         //@todo: future mobile port problem here, need to pass just angle received by playerInput method
         playerWeapon.SetAim(Camera.main.ScreenToWorldPoint(playerInput.GetAimDir()));
 
         playerLandMover.UpdateAnimation();
+    }
+
+    public void FixedUpdate()
+    {
+        playerLandMover.UpdateMovement();
     }
 
     public void OnCollisionStay2D(Collision2D col)

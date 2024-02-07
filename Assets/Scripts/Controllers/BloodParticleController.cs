@@ -18,6 +18,7 @@ public class BloodParticleController : MonoBehaviour
 
     public void OnParticleCollision(GameObject other)
     {
+        Debug.Log("O SANGUE BATEU");
         if (!other.CompareTag("Ground")) return;
 
         int numCollisionEvents = _particleSystem.GetCollisionEvents(other, collisionEvents);
