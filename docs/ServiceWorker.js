@@ -1,4 +1,4 @@
-const cacheName = "MiojoGames-Ninja Crush-0.2";
+const cacheName = "DiocaneGames-Ninja Crush-0.3";
 const contentToCache = [
     "Build/docs.loader.js",
     "Build/docs.framework.js",

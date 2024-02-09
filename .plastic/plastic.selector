@@ -1,4 +1,0 @@
-repository "NinjaCrush@diocane_ames@cloud"
-  path "/"
-    br "/main"
-    co "/main"
