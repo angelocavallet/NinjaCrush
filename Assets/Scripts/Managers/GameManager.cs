@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     public void Continue()
     {
         isPaused = false;
-        playerInput.EnableInputs();
+        if (playerInput) playerInput.EnableInputs();
         Time.timeScale = 1f;
     }
 

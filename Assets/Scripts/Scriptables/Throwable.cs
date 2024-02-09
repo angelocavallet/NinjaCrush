@@ -98,8 +98,12 @@ public class Throwable : ScriptableObject
 
         isHited = true;
 
+        //@todo: throwEffectPrefab as EffectScriptableObject
+        // effectSO.Stop() ?
         //throwEffectPrefab.SetActive(false);
         throwEffectPrefab.GetComponent<ParticleSystem>().Stop();
+        throwEffectPrefab.GetComponentInChildren<Transform>().gameObject.SetActive(false);
+
         rigidbody2D.velocity = Vector3.zero;
         rigidbody2D.isKinematic = true;
         collider2D.enabled = false;

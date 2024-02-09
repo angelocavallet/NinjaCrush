@@ -63,8 +63,7 @@ public class Weapon : ScriptableObject
 
         newThrowable.selfTag = TAG_THROWABLE;
         newThrowable.targetTag = TAG_TARGET;
-        newThrowable.selfThrowerTag = TAG_SELF_THROWER
-            ;
+        newThrowable.selfThrowerTag = TAG_SELF_THROWER;
         newThrowable.onThrowed = onThrowed;
 
         newThrowable.onHitedTarget = onHitedTarget;
