@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -37,24 +36,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private static GameManager _instance;
+    private static GameManager _instance = null;
     private static SoundManager _soundManager;
     private static PlayerInput _playerInput;
     private static Boolean _isPaused;
 
     public void Awake()
     {
-        if (instance == null)
+        if (_instance)
         {
-            LoadActiveManagers();
+            Destroy(gameObject);
+            return;
+        }
 
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(this);
-        }
+        LoadActiveManagers();
+
+        _instance = this;
+        DontDestroyOnLoad(this);
+        
     }
 
     public void Continue()
@@ -67,7 +66,7 @@ public class GameManager : MonoBehaviour
     public void Pause()
     {
         isPaused = true;
-        playerInput.DisableInputs();
+        if (playerInput) playerInput.DisableInputs();
         Time.timeScale = 0;
     }
 

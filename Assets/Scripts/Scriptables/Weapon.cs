@@ -59,7 +59,7 @@ public class Weapon : ScriptableObject
 
         Transform newTransform = transform;
         newTransform.rotation = rotation;
-        Throwable newThrowable = throwable.InstantiateCloneAtTransform(newTransform);
+        Throwable newThrowable = throwable.InstantiateCloneAtTransform(transform);
 
         newThrowable.selfTag = TAG_THROWABLE;
         newThrowable.targetTag = TAG_TARGET;

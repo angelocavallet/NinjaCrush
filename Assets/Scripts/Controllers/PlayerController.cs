@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 
     public void Awake()
     {
-        if (GameManager.instance) GameManager.instance.playerInput = playerInput;
 
         playerLandMover = playerLandMover.Clone();
         playerLandMover.rigidbody2D = GetComponent<Rigidbody2D>();
@@ -35,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public void Start()
     {
         playerInput.EnableInputs();
+        if (GameManager.instance) GameManager.instance.playerInput = playerInput;
     }
 
     public void Update()

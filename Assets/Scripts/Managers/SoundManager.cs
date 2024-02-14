@@ -17,7 +17,7 @@ public class SoundManager : MonoBehaviour
         {
             _musicVolume = value;
             PlayerPrefs.SetFloat(musicPlayerPrefs, value);
-            if (musicSource != null) musicSource.volume = value;
+            if (_musicSource != null) _musicSource.volume = value;
         }
     }
 
@@ -28,13 +28,16 @@ public class SoundManager : MonoBehaviour
         {
             _sfxVolume = value;
             PlayerPrefs.SetFloat(sfxPlayerPrefs, value);
-            sfxSourceList.ForEach(x => x.volume = value);
+            sfxSourceList.ForEach(x => {
+                if (x != null) x.volume = value;
+            });
         }
     }
 
-    private AudioSource musicSource;
+    private AudioListener _audioListener;
+    private AudioSource _musicSource;
     private List<AudioSource> sfxSourceList = new List<AudioSource>();
-    private static SoundManager _instance;
+    private static SoundManager _instance = null;
     private float _musicVolume;
     private float _sfxVolume;
 
@@ -44,24 +47,28 @@ public class SoundManager : MonoBehaviour
 
     public void Awake()
     {
-        if (instance == null)
+        if (_instance)
         {
-            _musicVolume = PlayerPrefs.HasKey(musicPlayerPrefs) ? PlayerPrefs.GetFloat(musicPlayerPrefs) : 0.7f;
-            _sfxVolume = PlayerPrefs.HasKey(sfxPlayerPrefs) ? PlayerPrefs.GetFloat(sfxPlayerPrefs) : 0.5f;
-
-            musicSource = GetComponent<AudioSource>();
-            musicSource.volume = _musicVolume;
-
-            instance = this;
-            if (GameManager.instance) GameManager.instance.soundManager = this;
-            DontDestroyOnLoad(this);
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            Destroy(this);
-        }
+
+        CreateAudioListenerComponent();
+
+        _musicVolume = PlayerPrefs.HasKey(musicPlayerPrefs) ? PlayerPrefs.GetFloat(musicPlayerPrefs) : 0.7f;
+        _sfxVolume = PlayerPrefs.HasKey(sfxPlayerPrefs) ? PlayerPrefs.GetFloat(sfxPlayerPrefs) : 0.5f;
+
+        _musicSource = GetComponent<AudioSource>();
+        _musicSource.volume = _musicVolume;
+        _musicSource.enabled = true;
+
+        _instance = this;
+        if (GameManager.instance) GameManager.instance.soundManager = this;
+        DontDestroyOnLoad(this);
+        
     }
 
+    //NEED CHANGE SFX MANAGER
     public AudioSource RegisterSfxSource(AudioSource sfxSource)
     {
         sfxSource.volume = sfxVolume;
@@ -78,8 +85,13 @@ public class SoundManager : MonoBehaviour
     {
         //GOHORSE REFACTOR
         AudioClip nextMusicClip = sceneAudioClipList.First();
-        musicSource.clip = nextMusicClip;
+        _musicSource.clip = nextMusicClip;
         sceneAudioClipList.Remove(nextMusicClip);
-        musicSource.Play();
+        _musicSource.Play();
+    }
+
+    private void CreateAudioListenerComponent()
+    {
+        _audioListener = gameObject.AddComponent(typeof(AudioListener)) as AudioListener;
     }
 }
