@@ -104,6 +104,7 @@ public class Throwable : ScriptableObject
         throwEffectPrefab.GetComponent<ParticleSystem>().Stop();
         throwEffectPrefab.GetComponentInChildren<Transform>().gameObject.SetActive(false);
 
+        rigidbody2D.AddForce(rigidbody2D.velocity * 50);
         rigidbody2D.velocity = Vector3.zero;
         rigidbody2D.isKinematic = true;
         collider2D.enabled = false;

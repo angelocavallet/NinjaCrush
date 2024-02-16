@@ -10,14 +10,14 @@ using UnityEngine.Rendering.Universal;
  * Modified by @RehopeGames and @angelocavallet
  **/
 
-#if UNITY_EDITOR
 
 [RequireComponent(typeof(CompositeCollider2D))]
 public class ShadowCaster2DCreator : MonoBehaviour
 {
-    [SerializeField]
-    private bool selfShadows = true;
+    [SerializeField] private bool selfShadows = true;
+    [SerializeField] private float shadowOffset = .0f;
 
+#if UNITY_EDITOR
     private CompositeCollider2D tilemapCollider;
 
     static readonly FieldInfo meshField = typeof(ShadowCaster2D).GetField("m_Mesh", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -51,7 +51,8 @@ public class ShadowCaster2DCreator : MonoBehaviour
             shapePathField.SetValue(shadowCasterComponent, testPath);
             shapePathHashField.SetValue(shadowCasterComponent, Random.Range(int.MinValue, int.MaxValue));
             meshField.SetValue(shadowCasterComponent, new Mesh());
-            generateShadowMeshMethod.Invoke(shadowCasterComponent,
+
+            Bounds m_LocalBounds = (Bounds) generateShadowMeshMethod.Invoke(shadowCasterComponent,
             new object[] { meshField.GetValue(shadowCasterComponent), shapePathField.GetValue(shadowCasterComponent) });
         }
     }
@@ -63,8 +64,11 @@ public class ShadowCaster2DCreator : MonoBehaviour
             DestroyImmediate(child.gameObject);
         }
     }
+
+#endif
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(ShadowCaster2DCreator))]
 public class ShadowCaster2DTileMapEditor : Editor
 {
