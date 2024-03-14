@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d0ec88e0997b04eba04853619f9280, type: 3}
   m_Name: PlayerFrogLandMover
   m_EditorClassIdentifier: 
-  life: 10
+  maxHealth: 100
   speed: 2
   maxSpeed: 10
   jumpForce: 18

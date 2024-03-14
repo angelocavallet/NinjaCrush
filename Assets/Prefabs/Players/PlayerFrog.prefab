@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 4405130907265473844}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.89, y: 0.74, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 984986535
-  m_SortingLayer: -4
+  m_SortingLayer: -6
   m_SortingOrder: 0
   m_Sprite: {fileID: -6367560908665664636, guid: cd947491a13509945aa1b644f9db3ef2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLandMover: {fileID: 11400000, guid: 68549880eda50ec4688c2775afa8535f, type: 2}
+  aimPosition: {fileID: 2801322202003631683}
   playerInput: {fileID: 11400000, guid: 99be588cb2f072c46adac2a87ecfaa43, type: 2}
   playerWeapon: {fileID: 11400000, guid: a6db8c32c36723a4595d8e9560d2496f, type: 2}
-  aimPosition: {fileID: 2801322202003631683}
+  statsInfo: {fileID: 11400000, guid: 15a63dba3b5fa3349bd7971956052ad7, type: 2}

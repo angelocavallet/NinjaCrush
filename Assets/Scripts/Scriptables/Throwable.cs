@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new Throwable", menuName = "ScriptableObjects/Throwable")]
 public class Throwable : ScriptableObject
 {
-    [Header("Info")]
+    [Header("General Info")]
     [SerializeField] public string namePrefab;
     [SerializeField] public GameObject throwablePrefab;
     [SerializeField] public float mass;
@@ -34,11 +34,12 @@ public class Throwable : ScriptableObject
     }
     public Transform transform { private get; set; }
     public Action<Throwable> onThrowed { private get; set; }
-    public Action<Collider2D, Throwable> onHitedTarget { private get; set; }
-    public Action<Collider2D, Throwable> onHitedSomething { private get; set; }
+    public Action<Collider2D, Throwable, Vector2, float> onHitedTarget { private get; set; }
+    public Action<Collider2D, Throwable, Vector2, float> onHitedSomething { private get; set; }
     public string targetTag { private get; set; }
     public string selfThrowerTag { private get; set; }
     public string selfTag { private get; set; }
+    public bool isGhost { private get; set; }
 
     private AudioSource _audioSource;
     private Boolean isHited = false;
@@ -60,9 +61,14 @@ public class Throwable : ScriptableObject
 
     public void Throw(Vector2 velocity)
     {
+        rigidbody2D.mass = mass;
         rigidbody2D.velocity = velocity;
+
+        if (isGhost) return;
+
         PlayThrowAudioClip();
         throwEffectPrefab = Instantiate(throwEffectPrefab, transform.position, transform.rotation, transform);
+        throwEffectPrefab.SetActive(true);
         timeToDie = Time.time + lifeTimeSeconds;
         onThrowed(this);
     }
@@ -92,6 +98,7 @@ public class Throwable : ScriptableObject
 
     public void UpdateOnTriggerEnter2D(Collider2D otherCollider2D)
     {
+        if (isGhost) return;
         if (isHited) return;
         if (otherCollider2D.CompareTag(selfTag)) return;
         if (otherCollider2D.CompareTag(selfThrowerTag)) return;
@@ -104,7 +111,9 @@ public class Throwable : ScriptableObject
         throwEffectPrefab.GetComponent<ParticleSystem>().Stop();
         throwEffectPrefab.GetComponentInChildren<Transform>().gameObject.SetActive(false);
 
-        rigidbody2D.AddForce(rigidbody2D.velocity * 50);
+        Vector2 dirHit = rigidbody2D.velocity.normalized;
+        float magHit = Mathf.Abs(rigidbody2D.velocity.magnitude * this.mass);
+
         rigidbody2D.velocity = Vector3.zero;
         rigidbody2D.isKinematic = true;
         collider2D.enabled = false;
@@ -115,13 +124,13 @@ public class Throwable : ScriptableObject
             audioSource.clip = hitTargetAudioClip;
             audioSource.Play();
             Instantiate(hitTargetEffectPrefab, transform.position, Quaternion.identity, transform);
-            onHitedTarget(otherCollider2D, this);
+            onHitedTarget(otherCollider2D, this, dirHit, magHit);
             return;
         }
 
         audioSource.clip = hitOtherAudioClip;
         audioSource.Play();
         Instantiate(hitOtherEffectPrefab, transform.position, transform.rotation, transform);
-        onHitedSomething(otherCollider2D, this);
+        onHitedSomething(otherCollider2D, this, dirHit, magHit);
     }
 }

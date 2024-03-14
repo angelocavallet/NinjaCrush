@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d0ec88e0997b04eba04853619f9280, type: 3}
   m_Name: DudeMaskLandMover
   m_EditorClassIdentifier: 
-  life: 10
+  maxHealth: 20
   speed: 1
   maxSpeed: 3
   jumpForce: 8
@@ -25,3 +25,4 @@ MonoBehaviour:
   ANIM_FALLING: Falling
   ANIM_GROUNDED: Grounded
   ANIM_HURT: Hurt
+  xdir: 0

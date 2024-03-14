@@ -4,31 +4,36 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private LandMover playerLandMover;
+    [SerializeField] private Transform aimPosition;
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Weapon playerWeapon;
-    [SerializeField] private Transform aimPosition;
+    [SerializeField] public StatsInfo statsInfo;
 
     public void Awake()
     {
-
         playerLandMover = playerLandMover.Clone();
+
+        playerLandMover.transform = transform;
         playerLandMover.rigidbody2D = GetComponent<Rigidbody2D>();
         playerLandMover.spriteRenderer = GetComponent<SpriteRenderer>();
         playerLandMover.animator = GetComponent<Animator>();
 
-        playerWeapon = playerWeapon.InstantiateCloneInsideTransform(aimPosition);
+        statsInfo = statsInfo.Clone(transform, playerLandMover.health);
+        playerWeapon = playerWeapon.Clone(aimPosition);
 
+        
         playerWeapon.onThrowed = (Throwable throwable) => {
             //do something
         };
 
-        playerWeapon.onHitedTarget = (Collider2D collider, Throwable throwable) => {
-            collider.GetComponent<EnemyController>().Hurt(throwable.damage);
+        playerWeapon.onHitedTarget = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
+            collider.GetComponent<EnemyController>().Hurt(throwable.damage, dirHit, magHit);
         };
 
-        playerWeapon.onHitedSomething = (Collider2D collider, Throwable throwable) => {
+        playerWeapon.onHitedSomething = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
             //do something
         };
+        
     }
 
     public void Start()
@@ -63,5 +68,11 @@ public class PlayerController : MonoBehaviour
     public void OnCollisionExit2D(Collision2D col) 
     {
         playerLandMover.UpdateCollisionExit(col);
+    }
+
+    public void Hurt(float damage, Vector2 dirHit, float magHit)
+    {
+        playerLandMover.Hurt(damage, dirHit, magHit);
+        statsInfo.UpdateHealth(-damage);
     }
 }

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class FPSCounter : MonoBehaviour
 {
-    private String Text;
+    private string Text;
     public TextMeshProUGUI FPS_Text;
 
     private Dictionary<int, string> CachedNumberStrings = new();
@@ -31,7 +30,7 @@ public class FPSCounter : MonoBehaviour
     {
         // Sample
         {
-            var currentFrame = (int)Math.Round(1f / Time.smoothDeltaTime); // If your game modifies Time.timeScale, use unscaledDeltaTime and smooth manually (or not).
+            var currentFrame = (int) Math.Round(1f / Time.smoothDeltaTime); // If your game modifies Time.timeScale, use unscaledDeltaTime and smooth manually (or not).
             _frameRateSamples[_averageCounter] = currentFrame;
         }
 
@@ -44,7 +43,7 @@ public class FPSCounter : MonoBehaviour
                 average += frameRate;
             }
 
-            _currentAveraged = (int)Math.Round(average / _averageFromAmount);
+            _currentAveraged = (int) Math.Round(average / _averageFromAmount);
             _averageCounter = (_averageCounter + 1) % _averageFromAmount;
         }
 

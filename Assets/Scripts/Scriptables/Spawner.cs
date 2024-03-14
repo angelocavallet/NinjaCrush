@@ -43,6 +43,7 @@ public class SpawnManager : ScriptableObject
 
     public void SpawnEntitiesAtRandomPoints()
     {
+        Debug.Log($"NEW WAVE: {prefabPerWave}");
         for (int i = 0; i < prefabPerWave; i++)
         {
 
@@ -54,12 +55,15 @@ public class SpawnManager : ScriptableObject
 
             instanceNumber++;
         }
+
+        prefabPerWave = (int)(prefabPerWave * progressionEachWave);
     }
 
     public void SpawnEntitiesAtDistribuitedPoints()
     {
         int currentSpawnPointIndex = 0;
 
+        Debug.Log($"NEW WAVE: {prefabPerWave}");
         for (int i = 0; i < prefabPerWave; i++)
         {
             GameObject spawnPoint = spawnPointList[currentSpawnPointIndex];
@@ -72,5 +76,7 @@ public class SpawnManager : ScriptableObject
 
             instanceNumber++;
         }
+
+        prefabPerWave = (int) (prefabPerWave * progressionEachWave);
     }
 }

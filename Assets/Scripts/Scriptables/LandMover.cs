@@ -5,7 +5,7 @@ using UnityEngine;
 public class LandMover : ScriptableObject
 {
     [Header("Physics Settings")]
-    [SerializeField] private float life;
+    [SerializeField] private float maxHealth;
     [SerializeField] private float speed;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float jumpForce;
@@ -14,39 +14,49 @@ public class LandMover : ScriptableObject
     [SerializeField] private bool hasWallJump;
 
     [Header("Collision Tags")]
-    [SerializeField] private String TAG_GROUND = "Ground";
+    [SerializeField] private string TAG_GROUND = "Ground";
 
     [Header("Animation Labels")]
-    [SerializeField] private String ANIM_MOVING = "Moving";
-    [SerializeField] private String ANIM_JUMPING = "Jumping";
-    [SerializeField] private String ANIM_FALLING = "Falling";
-    [SerializeField] private String ANIM_GROUNDED = "Grounded";
-    [SerializeField] private String ANIM_HURT = "Hurt";
+    [SerializeField] private string ANIM_MOVING = "Moving";
+    [SerializeField] private string ANIM_JUMPING = "Jumping";
+    [SerializeField] private string ANIM_FALLING = "Falling";
+    [SerializeField] private string ANIM_GROUNDED = "Grounded";
+    [SerializeField] private string ANIM_HURT = "Hurt";
 
+    [Header("Horizontal Direction")]
     public float xdir;
+
+    public Transform transform { private get; set; }
     public Rigidbody2D rigidbody2D { private get; set; }
     public Animator animator { private get; set; }
     public SpriteRenderer spriteRenderer { private get; set; }
     public Vector2 groundTouchDirCheck { get; private set; }
     public Vector2 otherTouchDirCheck { get; private set; }
+    public float health { get; private set; }
+    public Boolean recovering { get; private set; }
 
-    private bool jumpTrigger;
-    private bool doubleJumpCharged = false;
     private bool dieTrigger;
     private bool dead;
     private bool moving;
     private Vector2 velocity;
+    private bool jumpTrigger;
+    private bool doubleJumpCharged = false;
+    private float recoveringTimer = 0f;
 
     public LandMover Clone()
     {
-        return Instantiate(this);
+        LandMover landMover = Instantiate(this);
+        landMover.health = maxHealth;
+        landMover.recovering = false;
+
+        return landMover;
     }
 
     public void UpdateMovement()
     {
         velocity = rigidbody2D.velocity;
 
-        if (xdir != 0f)
+        if (recoveringTimer == 0f && xdir != 0f)
         {
             float xMoveVel = Math.Abs(velocity.x) + speed;
 
@@ -56,6 +66,12 @@ public class LandMover : ScriptableObject
             }
 
             velocity.x = xMoveVel * xdir;
+        }
+
+        if (recoveringTimer > 0f && (recoveringTimer + recoverColdown < Time.time))
+        {
+            recovering = false;
+            recoveringTimer = 0f;
         }
 
         moving = Math.Abs(velocity.x) > 0.1f;
@@ -125,15 +141,22 @@ public class LandMover : ScriptableObject
         jumpTrigger = true;
     }
 
-    public void Hurt(float damage)
+    public void Hurt(float damage, Vector2 dirHit, float magHit)
     {
-        life -= damage;
+        health -= Mathf.Abs(damage);
 
-        if (life < 0f)
+        if (health < 0f)
         {
             dieTrigger = true;
             dead = true;
-            Destroy(this, 1f);
+            Destroy(transform.gameObject, 0.6f);
+        }
+
+        if (magHit > 0f)
+        {
+            recovering = true;
+            recoveringTimer = Time.time;
+            rigidbody2D.velocity = dirHit * magHit;
         }
     }
 

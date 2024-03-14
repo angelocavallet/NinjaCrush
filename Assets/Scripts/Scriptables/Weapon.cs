@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "new Weapon", menuName = "ScriptableObjects/Weapon")]
 public class Weapon : ScriptableObject
@@ -17,27 +19,33 @@ public class Weapon : ScriptableObject
     [SerializeField] private const string TAG_TARGET = "Enemy";
     [SerializeField] private const string TAG_SELF_THROWER = "Player";
     [SerializeField] private const string TAG_THROWABLE = "Bullet";
+    [SerializeField] private const string TAG_GROUND = "Ground";
+
+    [SerializeField] private int _maxPhysicsFrameIterations = 30;
 
     public Action<Throwable> onThrowed { private get; set; }
-    public Action<Collider2D, Throwable> onHitedTarget { private get; set; }
-    public Action<Collider2D, Throwable> onHitedSomething { private get; set; }
+    public Action<Collider2D, Throwable, Vector2, float> onHitedTarget { private get; set; }
+    public Action<Collider2D, Throwable, Vector2, float> onHitedSomething { private get; set; }
     public Transform transform { private get; set; }
+    public LineRenderer lineRenderer { private get; set; }
 
     private Vector2 aimDirection;
+    private Scene _simulationScene;
+    private PhysicsScene _physicsScene;
     private float nextShoot = 0f;
     private int instanceNumber = 1;
 
-    public Weapon Clone()
+    public Weapon Clone(Transform aimPositionTransform)
     {
-        return Instantiate(this);
-    }
+        GameObject newWeaponGameObject = Instantiate(weaponPrefab, aimPositionTransform.position, aimPositionTransform.rotation, aimPositionTransform);
+        newWeaponGameObject.name = $"{namePrefab} ({++instanceNumber})";
 
-    public Weapon InstantiateCloneInsideTransform(Transform transform)
-    {
-        GameObject newWeaponInstance = Instantiate(weaponPrefab, transform.position, transform.rotation, transform);
-        instanceNumber++;
-        newWeaponInstance.name = $"{namePrefab} ({instanceNumber})";
-        return newWeaponInstance.GetComponent<WeaponController>().weapon;
+        Weapon newWeapon = Instantiate(this);
+        newWeapon.transform = aimPositionTransform;
+        newWeapon.lineRenderer = newWeaponGameObject.GetComponent<LineRenderer>();
+
+        //createdWeapon.CreatePhysicsScene();
+        return newWeapon;
     }
 
     //@todo for mobile here need to change this to receive angle and decide angle in PlayerInput
@@ -46,6 +54,7 @@ public class Weapon : ScriptableObject
         aimDirection = (pointerPosition - (Vector2)transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(Vector3.forward * (angle + 90f));
+        //SimulateTrajectory();
     }
 
     public void Throw()
@@ -73,5 +82,49 @@ public class Weapon : ScriptableObject
         newThrowable.PlayThrowAudioClip();
 
         instanceNumber++;
+    }
+
+    private void CreatePhysicsScene()
+    {
+        GameObject ghostGrid = Instantiate(GameObject.FindGameObjectsWithTag("Grid").First());
+
+        foreach (Transform t in ghostGrid.transform)
+        {
+            if (t.gameObject.CompareTag(TAG_GROUND))
+            {
+                t.gameObject.GetComponent<Renderer>().enabled = false;
+
+            }
+            else
+            {
+                Destroy(t.gameObject);
+            }
+        }
+
+        _simulationScene = SceneManager.CreateScene("Simulation", new CreateSceneParameters(LocalPhysicsMode.Physics3D));
+        _physicsScene = _simulationScene.GetPhysicsScene();
+
+        SceneManager.MoveGameObjectToScene(ghostGrid, _simulationScene);
+    }
+
+    public void SimulateTrajectory()
+    {
+        GameObject newThrowablePrefab = Instantiate(throwable.throwablePrefab, transform.position, transform.rotation);
+        newThrowablePrefab.name = $"SIMULATE {namePrefab} ({instanceNumber})";
+        Throwable newThrowable = newThrowablePrefab.GetComponent<ThrowableController>().GetThrowable();
+        newThrowable.isGhost = true;
+        SceneManager.MoveGameObjectToScene(newThrowablePrefab, _simulationScene);
+
+        newThrowable.Throw(aimDirection * throwForce);
+
+        lineRenderer.positionCount = _maxPhysicsFrameIterations;
+
+        for (int i = 0; i < _maxPhysicsFrameIterations; i++)
+        {
+            _physicsScene.Simulate(Time.fixedDeltaTime);
+            lineRenderer.SetPosition(i, newThrowablePrefab.transform.position);
+        }
+
+        Destroy(newThrowablePrefab);
     }
 }

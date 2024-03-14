@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - SpawnPoint
   - Blood
+  - Grid
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - StatsInfo
   - 
   - 
   - 
@@ -66,6 +67,9 @@ TagManager:
     locked: 0
   - name: Weapon
     uniqueID: 993700409
+    locked: 0
+  - name: UI
+    uniqueID: 3797674807
     locked: 0
   - name: Default
     uniqueID: 0
