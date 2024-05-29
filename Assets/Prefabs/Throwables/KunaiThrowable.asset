@@ -20,6 +20,6 @@ MonoBehaviour:
   throwEffectPrefab: {fileID: 4135206969941052617, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
   hitTargetEffectPrefab: {fileID: 8719900064538854672, guid: 6ee6a912d231353478287bdd0fc6b018, type: 3}
   hitOtherEffectPrefab: {fileID: 4135206969941052617, guid: b5a3ad9ec7b366b49a5331eae1b6c548, type: 3}
-  throwAudioClip: {fileID: 8300000, guid: 2674447f662fe1b46bbf0a3d4fc75643, type: 3}
-  hitTargetAudioClip: {fileID: 8300000, guid: cb60d64e8dfe0d74e81e12b24e3bbf7c, type: 3}
+  throwAudioClip: {fileID: 8300000, guid: f09d05a7e276ed942a6d9d5a2d870176, type: 3}
+  hitTargetAudioClip: {fileID: 8300000, guid: eb24a3930d39f304f833ebe091ad4b7d, type: 3}
   hitOtherAudioClip: {fileID: 8300000, guid: 91b0a47fab37ac447bc3d3b0a2df14c4, type: 3}

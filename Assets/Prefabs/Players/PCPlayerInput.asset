@@ -44,6 +44,30 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Move Input
       m_Flags: 8
+    - m_Name: 1D Axis
+      m_Id: 71145081-9e56-4c1e-908c-dcfb1ac8eba6
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move Input
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 1f9dc1ac-f11e-400e-a264-91042aec25ec
+      m_Path: <Gamepad>/leftStick/left
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move Input
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 0e23dd60-060c-469b-af2e-ad42958196ac
+      m_Path: <Gamepad>/leftStick/right
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move Input
+      m_Flags: 8
     m_Flags: 0
   jumpInput:
     m_Name: Jump Input
