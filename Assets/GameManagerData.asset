@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a79d58b0d92d44f9c29b0d8a150e66, type: 3}
+  m_Name: GameManagerData
+  m_EditorClassIdentifier: 
+  displayGameMessageSeconds: 2.3
+  writeDialogLetterEverySeconds: 0.4
+  soundManagerData: {fileID: 11400000, guid: b3618bd6c1533f4459ce836cfd8dd538, type: 2}
+  playerInputData: {fileID: 11400000, guid: 99be588cb2f072c46adac2a87ecfaa43, type: 2}
+  sceneLoaderManagerData: {fileID: 11400000, guid: b12acfd88d6044a4cb97fa0209be5887, type: 2}
+  levelManagerDataList:
+  - {fileID: 11400000, guid: cd29b8b6db4251540866a70872c80f59, type: 2}

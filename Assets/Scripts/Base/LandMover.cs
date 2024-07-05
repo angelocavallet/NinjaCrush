@@ -1,39 +1,37 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new LandMover", menuName = "ScriptableObjects/Movements/LandMover")]
-public class LandMover : ScriptableObject
+[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
+public class LandMover : MonoBehaviour
 {
-    [Header("Physics Settings")]
-    [SerializeField] private float maxHealth;
-    [SerializeField] private float speed;
-    [SerializeField] private float maxSpeed;
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float recoverColdown;
-    [SerializeField] private bool hasDoubleJump;
-    [SerializeField] private bool hasWallJump;
+    [SerializeField] private LandMoverScriptableObject landMoverData;
 
-    [Header("Collision Tags")]
-    [SerializeField] private string TAG_GROUND = "Ground";
+    private float maxHealth;
+    private float speed;
+    private float maxSpeed;
+    private float jumpForce;
+    private float recoverColdown;
+    private bool hasDoubleJump;
+    private bool hasWallJump;
 
-    [Header("Animation Labels")]
-    [SerializeField] private string ANIM_MOVING = "Moving";
-    [SerializeField] private string ANIM_JUMPING = "Jumping";
-    [SerializeField] private string ANIM_FALLING = "Falling";
-    [SerializeField] private string ANIM_GROUNDED = "Grounded";
-    [SerializeField] private string ANIM_HURT = "Hurt";
+    private string TAG_GROUND;
 
-    [Header("Horizontal Direction")]
-    public float xdir;
+    private string ANIM_MOVING;
+    private string ANIM_JUMPING;
+    private string ANIM_FALLING;
+    private string ANIM_GROUNDED;
+    private string ANIM_HURT;
 
-    public Transform transform { private get; set; }
-    public Rigidbody2D rigidbody2D { private get; set; }
-    public Animator animator { private get; set; }
-    public SpriteRenderer spriteRenderer { private get; set; }
+    protected float xdir;
+
     public Vector2 groundTouchDirCheck { get; private set; }
     public Vector2 otherTouchDirCheck { get; private set; }
     public float health { get; private set; }
     public Boolean recovering { get; private set; }
+
+    private Rigidbody2D rigidbody2D;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     private bool dieTrigger;
     private bool dead;
@@ -43,14 +41,29 @@ public class LandMover : ScriptableObject
     private bool doubleJumpCharged = false;
     private float recoveringTimer = 0f;
 
-    public LandMover Clone()
+    public void Awake()
     {
-        LandMover landMover = Instantiate(this);
-        landMover.health = maxHealth;
-        landMover.recovering = false;
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
-        return landMover;
+        maxHealth = landMoverData.maxHealth;
+        speed = landMoverData.speed;
+        maxSpeed = landMoverData.maxSpeed;
+        jumpForce = landMoverData.jumpForce;
+        recoverColdown = landMoverData.recoverColdown;
+        hasDoubleJump = landMoverData.hasDoubleJump;
+        hasWallJump = landMoverData.hasWallJump;
+    
+        TAG_GROUND = landMoverData.TAG_GROUND;
+    
+        ANIM_MOVING = landMoverData.ANIM_MOVING;
+        ANIM_JUMPING = landMoverData.ANIM_JUMPING;
+        ANIM_FALLING = landMoverData.ANIM_FALLING;
+        ANIM_GROUNDED = landMoverData.ANIM_GROUNDED;
+        ANIM_HURT = landMoverData.ANIM_HURT;
     }
+
 
     public void UpdateMovement()
     {

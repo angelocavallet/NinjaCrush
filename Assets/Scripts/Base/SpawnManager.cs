@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new SpawnManager", menuName = "ScriptableObjects/SpawnManager")]
-public class SpawnManager : ScriptableObject
+public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private string tagSpawnLocations;
     [SerializeField] private GameObject prefabToSpawn;
@@ -18,11 +17,6 @@ public class SpawnManager : ScriptableObject
     private System.Random rand = new System.Random();
     private List<GameObject> spawnPointList = new List<GameObject>();
     private float nextSpawnExec = 0.0f;
-
-    public SpawnManager Clone()
-    {
-        return Instantiate(this);
-    }
 
     public void DiscoverSpawnPoints(GameObject spawnerGameObject)
     {

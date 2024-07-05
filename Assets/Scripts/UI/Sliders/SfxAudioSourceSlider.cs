@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SfxAudioSourceSlider : MonoBehaviour
+public class MasterAudioSourceSlider : MonoBehaviour
 {
     private Slider slider;
 
     public void Start()
     {
         slider = GetComponent<Slider>();
-        slider.value = SoundManager.instance.sfxVolume;
+        slider.value = GameManager.instance.soundManager.masterVolume;
 
-        slider.onValueChanged.AddListener(delegate (float x) { SoundManager.instance.sfxVolume = x; });
+        slider.onValueChanged.AddListener(delegate (float x) { GameManager.instance.soundManager.masterVolume = x; });
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a9c8d8d94662bf45ae06c73f5d02f49, type: 3}
+  m_Name: SceneLoaderManagerData
+  m_EditorClassIdentifier: 
+  loadSceneName: LoadScene
+  startGameSceneName: MenuScene
+  minLoadTimeToCutoffSeconds: 10
+  gameMessageLoadPrefab: {fileID: 1911184371911862387, guid: f606f37a2757bf343878154db39e941c, type: 3}
+  percentTextPrefab: {fileID: 1109682186866761823, guid: 735f15c26a54cec4ba3c8511456d5400, type: 3}

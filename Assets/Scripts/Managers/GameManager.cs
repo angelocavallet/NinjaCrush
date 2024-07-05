@@ -3,19 +3,36 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameManagerScriptableObject gameManagerData;
+    [SerializeField] private AudioSource musicAudioSource;
+
     public static GameManager instance
     {
         get => _instance;
         private set => _instance = value;
     }
 
+    public float writeDialogLetterEverySeconds 
+    {
+        get => gameManagerData.writeDialogLetterEverySeconds;
+    }
+
+    public SceneLoaderManager sceneLoaderManager
+    {
+        get => _sceneLoaderManager;
+        private set => _sceneLoaderManager = value;
+    }
+
+    public SaveGameManager saveGameManager
+    {
+        get => _saveGameManager;
+        private set => _saveGameManager = value;
+    }
+
     public SoundManager soundManager
     {
-        get => _soundManager;
-        set
-        {
-            _soundManager = value;
-        }
+       get => _soundManager;  
+       private set => _soundManager = value;
     }
 
     public PlayerInput playerInput
@@ -27,7 +44,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public Boolean isPaused
+    public bool fullScreen
+    {
+        get => Screen.fullScreen;
+        set => Screen.fullScreen = value;
+    }
+
+    public bool isPaused
     {
         get => _isPaused;
         private set
@@ -37,41 +60,45 @@ public class GameManager : MonoBehaviour
     }
 
     private static GameManager _instance = null;
-    private static SoundManager _soundManager;
-    private static PlayerInput _playerInput;
-    private static Boolean _isPaused;
+
+    private SaveGameManager _saveGameManager;
+    private SceneLoaderManager _sceneLoaderManager;
+    private SoundManager _soundManager;
+    private PlayerInput _playerInput;
+    private bool _isPaused;
 
     public void Awake()
     {
-        if (_instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (instance != null) throw new Exception("Only a single GameManager instance must exists");
+        instance = this;
 
-        LoadActiveManagers();
+        LoadManagers();
 
-        _instance = this;
         DontDestroyOnLoad(this);
+        sceneLoaderManager.LoadStartScene();
     }
 
     public void Continue()
     {
         isPaused = false;
-        if (playerInput) playerInput.EnableInputs();
+        if (playerInput != null) playerInput.EnableInputs();
         Time.timeScale = 1f;
     }
 
     public void Pause()
     {
         isPaused = true;
-        if (playerInput) playerInput.DisableInputs();
+        if (playerInput != null) playerInput.DisableInputs();
         Time.timeScale = 0;
     }
 
-    private void LoadActiveManagers()
+    private void LoadManagers()
     {
-        if (SoundManager.instance) soundManager = SoundManager.instance;
-        if (PlayerInput.instance) playerInput = PlayerInput.instance;
+        saveGameManager = new SaveGameManager();
+        sceneLoaderManager = new SceneLoaderManager(gameManagerData.sceneLoaderManagerData);
+        playerInput = new PlayerInput(gameManagerData.playerInputData);
+        soundManager = new SoundManager(gameManagerData.soundManagerData, musicAudioSource);
+
+        if (PlayerInput.instance != null) playerInput = PlayerInput.instance;
     }
 }

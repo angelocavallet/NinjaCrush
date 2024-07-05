@@ -1,62 +1,56 @@
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new Throwable", menuName = "ScriptableObjects/Throwable")]
-public class Throwable : ScriptableObject
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(AudioSource))]
+public class Throwable : MonoBehaviour
 {
-    [Header("General Info")]
-    [SerializeField] public string namePrefab;
-    [SerializeField] public GameObject throwablePrefab;
-    [SerializeField] public float mass;
-    [SerializeField] public float damage;
-    [SerializeField] public float lifeTimeSeconds;
+    [SerializeField] private ThrowableScriptableObject throwableData;
 
-    [Header("Effect Prefabs")]
-    [SerializeField] private GameObject throwEffectPrefab;
-    [SerializeField] private GameObject hitTargetEffectPrefab;
-    [SerializeField] private GameObject hitOtherEffectPrefab;
-
-    [Header("Audio Clips")]
-    [SerializeField] private AudioClip throwAudioClip;
-    [SerializeField] private AudioClip hitTargetAudioClip;
-    [SerializeField] private AudioClip hitOtherAudioClip;
-
-    public Rigidbody2D rigidbody2D { private get; set; }
-    public Collider2D collider2D { private get; set; }
-    public AudioSource audioSource {
-        private get => _audioSource;
-        set
-        {
-            _audioSource = value;
-            SoundManager.instance.RegisterSfxSource(value);
-        } 
-    }
-    public Transform transform { private get; set; }
+    public float damage { get; private set; }
     public Action<Throwable> onThrowed { private get; set; }
     public Action<Collider2D, Throwable, Vector2, float> onHitedTarget { private get; set; }
     public Action<Collider2D, Throwable, Vector2, float> onHitedSomething { private get; set; }
     public string targetTag { private get; set; }
     public string selfThrowerTag { private get; set; }
-    public string selfTag { private get; set; }
     public bool isGhost { private get; set; }
 
-    private AudioSource _audioSource;
+    private float mass;
+    private float lifeTimeSeconds;
+
+    //@todo: Need Effect base class
+    private GameObject throwEffectPrefab;
+    private GameObject hitTargetEffectPrefab;
+    private GameObject hitOtherEffectPrefab;
+
+    //@todo: Need Effect base class
+    private AudioClip throwAudioClip;
+    private AudioClip hitTargetAudioClip;
+    private AudioClip hitOtherAudioClip;
+
+    private Rigidbody2D rigidbody2D;
+    private Collider2D collider2D;
+    private AudioSource audioSource;
     private Boolean isHited = false;
-    private int instanceNumber = 1;
     private float timeToDie = 0f;
 
-    public Throwable Clone()
+    public void Awake()
     {
-        return Instantiate(this);
-    }
+        mass = throwableData.mass;
+        damage = throwableData.damage;
+        lifeTimeSeconds = throwableData.lifeTimeSeconds;
 
-    public Throwable InstantiateCloneAtTransform(Transform transform)
-    {
-        GameObject newThrowableInstance = Instantiate(throwablePrefab, transform.position, transform.rotation);
-        instanceNumber++;
-        newThrowableInstance.name = $"{namePrefab} ({instanceNumber})";
-        return newThrowableInstance.GetComponent<ThrowableController>().GetThrowable();
+        throwEffectPrefab = throwableData.throwEffectPrefab;
+        throwAudioClip = throwableData.throwAudioClip;
+
+        hitTargetEffectPrefab = throwableData.hitTargetEffectPrefab;
+        hitTargetAudioClip = throwableData.hitTargetAudioClip;
+
+        hitOtherEffectPrefab = throwableData.hitOtherEffectPrefab;
+        hitOtherAudioClip = throwableData.hitOtherAudioClip;
+
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        collider2D = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Throw(Vector2 velocity)
@@ -66,17 +60,12 @@ public class Throwable : ScriptableObject
 
         if (isGhost) return;
 
-        PlayThrowAudioClip();
         throwEffectPrefab = Instantiate(throwEffectPrefab, transform.position, transform.rotation, transform);
         throwEffectPrefab.SetActive(true);
-        timeToDie = Time.time + lifeTimeSeconds;
-        onThrowed(this);
-    }
-
-    public void PlayThrowAudioClip()
-    {   
         audioSource.clip = throwAudioClip;
         audioSource.Play();
+        timeToDie = Time.time + lifeTimeSeconds;
+        onThrowed(this);
     }
 
     public void UpdateMovement()
@@ -90,7 +79,6 @@ public class Throwable : ScriptableObject
         {
             if (Time.time > timeToDie)
             {
-                SoundManager.instance.UnregisterSfxSource(_audioSource);
                 Destroy(transform.gameObject);
             }
         }
@@ -100,11 +88,12 @@ public class Throwable : ScriptableObject
     {
         if (isGhost) return;
         if (isHited) return;
-        if (otherCollider2D.CompareTag(selfTag)) return;
+        if (otherCollider2D.CompareTag(transform.tag)) return;
         if (otherCollider2D.CompareTag(selfThrowerTag)) return;
 
         isHited = true;
 
+        //@todo: Need Effect base class
         //@todo: throwEffectPrefab as EffectScriptableObject
         // effectSO.Stop() ?
         //throwEffectPrefab.SetActive(false);

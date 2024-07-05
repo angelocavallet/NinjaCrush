@@ -2,21 +2,26 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "new PlayerInput", menuName = "ScriptableObjects/PlayerInput")]
-public class PlayerInput: ScriptableObject
+public class PlayerInput
 {
-    [Header("Inputs")]
-    [SerializeField] private InputAction moveInput;
-    [SerializeField] private InputAction jumpInput;
-    [SerializeField] private InputAction aimInput;
-    [SerializeField] private InputAction throwInput;
+    private InputAction moveInput;
+    private InputAction jumpInput;
+    private InputAction aimInput;
+    private InputAction throwInput;
 
     //@todo create InputManager
     public static PlayerInput instance
     {
         get => _instance;
-        //private 
-            set => _instance = value;
+    }
+
+    public PlayerInput(PlayerInputScriptableObject playerInputData)
+    {
+        moveInput = playerInputData.moveInput;
+        jumpInput = playerInputData.jumpInput;
+        aimInput = playerInputData.aimInput;
+        throwInput = playerInputData.throwInput;
+        _instance = this;
     }
 
     private static PlayerInput _instance;

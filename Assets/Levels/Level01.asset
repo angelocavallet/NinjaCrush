@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00260a97fe19c924ab9497a8ac35bab3, type: 3}
+  m_Name: Level01
+  m_EditorClassIdentifier: 
+  levelSceneName: Level01
+  levelDisplayName: THE INTRODUCTION
+  levelDisplaySprite: {fileID: 21300000, guid: 2d728ff08787c6640bbe4984c7ff018b, type: 3}
+  levelTimeSeconds: 120
+  levelSoundTrack: {fileID: 8300000, guid: dff041d31a8e8a54c99baf3f657d25cb, type: 3}
+  listaFases:
+  - name: Wave01
+    score: 0
+    cleared: 0
+  - name: Wave02
+    score: 0
+    cleared: 0
+  - name: Wave03
+    score: 0
+    cleared: 0

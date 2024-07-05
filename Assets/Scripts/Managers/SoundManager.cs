@@ -1,97 +1,61 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager
 {
     public static SoundManager instance {
         get => _instance;
         private set => _instance = value;
     }
+    public float masterVolume
+    {
+        get => _masterVolume;
+        set
+        {
+            AudioListener.volume = value;
+            _masterVolume = value;
+        }
+    }
 
-    public List<AudioClip> sceneAudioClipList;
-
-    public float musicVolume {
+    public float musicVolume
+    {
         get => _musicVolume;
         set
         {
             _musicVolume = value;
-            PlayerPrefs.SetFloat(musicPlayerPrefs, value);
-            if (_musicSource != null) _musicSource.volume = value;
+            if (musicSource != null) musicSource.volume = value;
         }
     }
 
-    public float sfxVolume
-    {
-        get => _sfxVolume;
-        set
-        {
-            _sfxVolume = value;
-            PlayerPrefs.SetFloat(sfxPlayerPrefs, value);
-            sfxSourceList.ForEach(x => {
-                if (x != null) x.volume = value;
-            });
-        }
-    }
-
-    private AudioListener _audioListener;
-    private AudioSource _musicSource;
-    private List<AudioSource> sfxSourceList = new List<AudioSource>();
     private static SoundManager _instance = null;
     private float _musicVolume;
-    private float _sfxVolume;
+    private float _masterVolume;
+    private AudioSource musicSource;
+    private AudioClip baseMusicAudioClip;
 
-    //@todo move to tag static class
-    private string musicPlayerPrefs = "musicVolume";
-    private string sfxPlayerPrefs = "sfxVolume";
-
-    public void Awake()
+    public SoundManager(SoundManagerScriptableObject soundManagerData, AudioSource someMusicSource)
     {
-        if (_instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (instance != null) throw new Exception("Only a single SoundManager instance must exists");
 
-        CreateAudioListenerComponent();
+        musicSource = someMusicSource;
+        baseMusicAudioClip = soundManagerData.baseMusicClip;
+        masterVolume = soundManagerData.masterVolume;
+        musicVolume = soundManagerData.musicVolume;
 
-        _musicVolume = PlayerPrefs.HasKey(musicPlayerPrefs) ? PlayerPrefs.GetFloat(musicPlayerPrefs) : 0.7f;
-        _sfxVolume = PlayerPrefs.HasKey(sfxPlayerPrefs) ? PlayerPrefs.GetFloat(sfxPlayerPrefs) : 0.5f;
+        if (!musicSource.clip || soundManagerData.overrideAudioSourceComponentClip) musicSource.clip = baseMusicAudioClip;
 
-        _musicSource = GetComponent<AudioSource>();
-        _musicSource.volume = _musicVolume;
-        _musicSource.enabled = true;
+        musicSource.Play();
 
-        _instance = this;
-        if (GameManager.instance) GameManager.instance.soundManager = this;
-        DontDestroyOnLoad(this);
-        
+        instance = this;
     }
 
-    //NEED CHANGE SFX MANAGER
-    public AudioSource RegisterSfxSource(AudioSource sfxSource)
+    public void StartOtherMusicClip(AudioClip newMusicAudioClip)
     {
-        sfxSource.volume = sfxVolume;
-        sfxSourceList.Add(sfxSource);
-
-        return sfxSource;
+        musicSource.clip = newMusicAudioClip;
     }
 
-    public void UnregisterSfxSource(AudioSource sfxSource)
+    public void StartBaseMusicClip()
     {
-        sfxSourceList.Remove(sfxSource);
-    }
-    public void NextSoundTrack()
-    {
-        //GOHORSE REFACTOR
-        AudioClip nextMusicClip = sceneAudioClipList.First();
-        _musicSource.clip = nextMusicClip;
-        sceneAudioClipList.Remove(nextMusicClip);
-        _musicSource.Play();
-    }
-
-    private void CreateAudioListenerComponent()
-    {
-        _audioListener = gameObject.AddComponent(typeof(AudioListener)) as AudioListener;
+        musicSource.clip = baseMusicAudioClip;
     }
 }

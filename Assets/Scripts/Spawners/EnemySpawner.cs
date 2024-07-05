@@ -6,7 +6,6 @@ public class EnemySpawnManager : MonoBehaviour
 
     public void Start()
     {
-        enemySpawnManager = enemySpawnManager.Clone();
         enemySpawnManager.DiscoverSpawnPoints(gameObject);
         enemySpawnManager.spawnAction = enemySpawnManager.SpawnEntitiesAtRandomPoints;
     }

@@ -8,8 +8,8 @@ public class MusicAudioSourceSlider : MonoBehaviour
     public void Start()
     {
         slider = GetComponent<Slider>();
-        slider.value = SoundManager.instance.musicVolume;
+        slider.value = GameManager.instance.soundManager.musicVolume;
 
-        slider.onValueChanged.AddListener(delegate (float x) { SoundManager.instance.musicVolume = x; });
+        slider.onValueChanged.AddListener(delegate (float x) { GameManager.instance.soundManager.musicVolume = x; });
     }
 }
