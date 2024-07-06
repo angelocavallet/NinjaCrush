@@ -4,6 +4,6 @@ public class LoadSceneButton : MonoBehaviour
 {
     public void loadScene(string sceneName)
     {
-        if (GameManager.instance) GameManager.instance.sceneLoaderManager.LoadScene(sceneName);
+        if (GameManager.instance) GameManager.instance.sceneLoaderManager.LoadSceneAsync(sceneName);
     }
 }

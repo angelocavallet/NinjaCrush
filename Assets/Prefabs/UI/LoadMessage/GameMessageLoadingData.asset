@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageDisplayTimeSeconds: 0.4
   messageList:
-  - text: Weaking up the Dudes
+  - text: Awaking the Creatures
     timeDisplaySeconds: 0
-  - text: Feeding the Dudes
+  - text: Feeding the Creatures
     timeDisplaySeconds: 0
-  - text: 
+  - text: Bribing some creatures
+    timeDisplaySeconds: 0
+  - text: Painting the grass
+    timeDisplaySeconds: 0
+  - text: Caving some caves
     timeDisplaySeconds: 0

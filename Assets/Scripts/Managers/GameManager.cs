@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -73,9 +74,16 @@ public class GameManager : MonoBehaviour
         instance = this;
 
         LoadManagers();
+        Debug.Log($"CARREGOU MANAGERS: ");
+
+        Debug.Log($"MANDOU CARREGAR: ");
 
         DontDestroyOnLoad(this);
-        sceneLoaderManager.LoadStartScene();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(sceneLoaderManager.LoadStartSceneAsync());
     }
 
     public void Continue()
@@ -95,9 +103,9 @@ public class GameManager : MonoBehaviour
     private void LoadManagers()
     {
         saveGameManager = new SaveGameManager();
-        sceneLoaderManager = new SceneLoaderManager(gameManagerData.sceneLoaderManagerData);
         playerInput = new PlayerInput(gameManagerData.playerInputData);
         soundManager = new SoundManager(gameManagerData.soundManagerData, musicAudioSource);
+        sceneLoaderManager = new SceneLoaderManager(gameManagerData.sceneLoaderManagerData);
 
         if (PlayerInput.instance != null) playerInput = PlayerInput.instance;
     }
