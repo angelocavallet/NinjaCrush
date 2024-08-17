@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 1170616429132283556}
   - component: {fileID: 5802064507374145433}
   - component: {fileID: 458627268337761007}
+  - component: {fileID: 4138913195370697787}
   m_Layer: 6
   m_Name: StatsInfoCanvas
   m_TagString: Untagged
@@ -270,6 +271,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4138913195370697787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5446703420329080481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f94338e5db7214f9ade97a79ec8ee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsInfoData: {fileID: 11400000, guid: 15a63dba3b5fa3349bd7971956052ad7, type: 2}
 --- !u!1 &7772835446258853458
 GameObject:
   m_ObjectHideFlags: 0

@@ -184,6 +184,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14de827c8e6a7d468b613f97370cc64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityUp: 60
-  fadeVelocity: 1.4
-  secondsToFade: 0.4
+  statsInfoData: {fileID: 11400000, guid: 15a63dba3b5fa3349bd7971956052ad7, type: 2}

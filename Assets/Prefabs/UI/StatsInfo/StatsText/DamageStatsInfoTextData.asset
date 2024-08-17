@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2c170e383b834440ac1bf66aa555809, type: 3}
-  m_Name: StatsInfo
+  m_Script: {fileID: 11500000, guid: a34a545a4709395448a7e9b10321944d, type: 3}
+  m_Name: DamageStatsInfoTextData
   m_EditorClassIdentifier: 
-  statsInfoPrefab: {fileID: 5446703420329080481, guid: 7032ef9f14d067548aa1682e7af6cf23, type: 3}
-  damageStatsText: {fileID: 8561406084313379705, guid: 4d1e53903153fc64b9996537fdc2c7df, type: 3}
+  verticalVelocity: 0.2
+  fadeVelocity: 0.2
+  secondsToFade: 2

@@ -74,10 +74,6 @@ public class GameManager : MonoBehaviour
         instance = this;
 
         LoadManagers();
-        Debug.Log($"CARREGOU MANAGERS: ");
-
-        Debug.Log($"MANDOU CARREGAR: ");
-
         DontDestroyOnLoad(this);
     }
 

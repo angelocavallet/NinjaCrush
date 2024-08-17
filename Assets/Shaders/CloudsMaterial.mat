@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Clouds Shader Graph
+  m_Name: CloudsMaterial
   m_Shader: {fileID: -6465566751694194690, guid: b10e961a0abdd83459e3fd7270be0bed, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -55,10 +55,11 @@ Material:
     m_Floats:
     - _Scale: 1.2
     m_Colors:
-    - _BackgroundDirection: {r: 0.02, g: 0.008, b: 0, a: 0}
-    - _ForegroundDirection: {r: 0.03, g: 0.01, b: 0, a: 0}
-    - _MainDirection: {r: 0.01, g: 0.005, b: 0, a: 0}
-    - _SkySphereDirection: {r: 0.004, g: 0, b: 0, a: 0}
+    - _BackgroundDirection: {r: 0.002, g: 0.008, b: 0, a: 0}
+    - _ForegroundDirection: {r: 0.0025, g: 0.01, b: 0, a: 0}
+    - _MainDirection: {r: 0.002, g: 0.005, b: 0, a: 0}
+    - _MoveDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _SkySphereDirection: {r: 0.001, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &296271243617788646
 MonoBehaviour:

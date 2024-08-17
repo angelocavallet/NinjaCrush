@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageTextController : StatsInfo
+public class DamageStatsInfoText : StatsInfo
 {
     public void UpdateHealth(float offsetHealth)
     {
