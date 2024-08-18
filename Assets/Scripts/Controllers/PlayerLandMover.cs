@@ -13,22 +13,22 @@ public class PlayerLandMover : LandMover
     {
         base.Awake();
 
-        /**        statsInfo = statsInfo.Clone(transform, playerLandMover.health);
-         *           */
+        playerInput = new PlayerInput(playerInputData);
 
-                
-        playerWeapon.onThrowed = (Throwable throwable) => {
-            //do something
-        };
+        if (playerWeapon)
+        {
+            playerWeapon.onThrowed = (Throwable throwable) => {
+                //do something
+            };
 
-        playerWeapon.onHitedTarget = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
-            collider.GetComponent<EnemyLandMover>().Hurt(throwable.damage, dirHit, magHit);
-        };
+            playerWeapon.onHitedTarget = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
+                collider.GetComponent<EnemyLandMover>().Hurt(throwable.damage, dirHit, magHit);
+            };
 
-        playerWeapon.onHitedSomething = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
-            //do something
-        };
-    
+            playerWeapon.onHitedSomething = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
+                //do something
+            };
+        }
     }
 
     public void Start()

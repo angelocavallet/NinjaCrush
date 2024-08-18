@@ -14,21 +14,20 @@ public class SceneLoaderManager
 
     public SceneLoaderManager(SceneLoaderManagerScriptableObject sceneLoaderManagerData) {
         this.sceneLoaderManagerData = sceneLoaderManagerData;
+        this.nextScene = sceneLoaderManagerData.startGameSceneName;
     }
 
-    public IEnumerator LoadStartSceneAsync()
-    {
-        return LoadSceneAsync(sceneLoaderManagerData.startGameSceneName);
-    }
-
-    public IEnumerator LoadSceneAsync(string sceneName)
+    public void LoadScene(string sceneName)
     {
         nextScene = sceneName;
         timeToCutoffSeconds = 0f;
         loadProgress = 0f;
-        if (!loadSceneLoaded) SceneManager.LoadScene(sceneLoaderManagerData.loadSceneName);
-        loadSceneLoaded = true;
+        loadSceneLoaded = false;
+        SceneManager.LoadScene(sceneLoaderManagerData.loadSceneName);
+    }
 
+    public IEnumerator LoadNextSceneAsync()
+    {
         timeToCutoffSeconds = Time.time + sceneLoaderManagerData.minLoadTimeToCutoffSeconds;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextScene);
         asyncLoad.allowSceneActivation = false;
@@ -45,7 +44,7 @@ public class SceneLoaderManager
             yield return null;
         }
 
-        asyncLoad.allowSceneActivation = true;
         loadProgress = 1f;
+        asyncLoad.allowSceneActivation = true;
     }
 }

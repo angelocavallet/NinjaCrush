@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00260a97fe19c924ab9497a8ac35bab3, type: 3}
-  m_Name: Level01
+  m_Name: Level01Data
   m_EditorClassIdentifier: 
-  levelSceneName: Level01
+  levelSceneName: Level01Scene
   levelDisplayName: THE INTRODUCTION
   levelDisplaySprite: {fileID: 21300000, guid: 2d728ff08787c6640bbe4984c7ff018b, type: 3}
   levelTimeSeconds: 120
-  levelSoundTrack: {fileID: 8300000, guid: dff041d31a8e8a54c99baf3f657d25cb, type: 3}
+  levelSoundTrack: {fileID: 8300000, guid: 02faa372b622662478165fd943ce6e49, type: 3}
   listaFases:
   - name: Wave01
     score: 0

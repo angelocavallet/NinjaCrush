@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b5e995e25263544b26dbe7e816751c, type: 3}
   m_Name: GameMessageLoadingData
   m_EditorClassIdentifier: 
-  messageDisplayTimeSeconds: 0.4
+  messageDisplayTimeSeconds: 0.8
   messageList:
   - text: Awaking the Creatures
     timeDisplaySeconds: 0
@@ -23,4 +23,10 @@ MonoBehaviour:
   - text: Painting the grass
     timeDisplaySeconds: 0
   - text: Caving some caves
+    timeDisplaySeconds: 0
+  - text: Cleaning some blood
+    timeDisplaySeconds: 0
+  - text: Crafting some weapons
+    timeDisplaySeconds: 0
+  - text: Breathing
     timeDisplaySeconds: 0

@@ -84,11 +84,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        StartCoroutine(sceneLoaderManager.LoadStartSceneAsync());
-    }
-
     public void Continue()
     {
         isPaused = false;

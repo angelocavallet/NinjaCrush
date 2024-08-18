@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class LevelManager
+public class LevelManager : MonoBehaviour
 {
     public LevelManagerScriptableObject levelManagerData;
 
