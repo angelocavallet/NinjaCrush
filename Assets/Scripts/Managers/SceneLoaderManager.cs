@@ -13,7 +13,6 @@ public class SceneLoaderManager
     private float _loadProgress = 0f;
 
     public SceneLoaderManager(SceneLoaderManagerScriptableObject sceneLoaderManagerData) {
-        Debug.Log(sceneLoaderManagerData.minLoadTimeToCutoffSeconds);
         this.sceneLoaderManagerData = sceneLoaderManagerData;
     }
 
@@ -24,12 +23,11 @@ public class SceneLoaderManager
 
     public IEnumerator LoadSceneAsync(string sceneName)
     {
-        Debug.Log($"TEMPO INICIO: {Time.time}");
         nextScene = sceneName;
         timeToCutoffSeconds = 0f;
+        loadProgress = 0f;
         if (!loadSceneLoaded) SceneManager.LoadScene(sceneLoaderManagerData.loadSceneName);
         loadSceneLoaded = true;
-        Debug.Log($"TEMPO DEPOIS: {Time.time} CARREGOU LOAD? {loadSceneLoaded}");
 
         timeToCutoffSeconds = Time.time + sceneLoaderManagerData.minLoadTimeToCutoffSeconds;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextScene);
@@ -37,13 +35,17 @@ public class SceneLoaderManager
 
         while (asyncLoad.progress < 0.9f || timeToCutoffSeconds > Time.time)
         {
-            Debug.Log($"CARREGANDO: {timeToCutoffSeconds} > {Time.time} ? prog {asyncLoad.progress} CARREGOU LOAD? {loadSceneLoaded}");
-            loadProgress = asyncLoad.progress < 0.9f ? asyncLoad.progress * 100 : 100;
+            if (timeToCutoffSeconds < Time.time) {
+                loadProgress = asyncLoad.progress;
+            }
+            else
+            {
+                loadProgress = Time.time / timeToCutoffSeconds;
+            }
             yield return null;
         }
-        Debug.Log($"ACABOU: {timeToCutoffSeconds} > {Time.time} ? prog {asyncLoad.progress} CARREGOU LOAD? {loadSceneLoaded}");
 
         asyncLoad.allowSceneActivation = true;
-        loadProgress = 0f;
+        loadProgress = 1f;
     }
 }

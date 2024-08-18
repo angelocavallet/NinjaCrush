@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5599903310057918092}
   - component: {fileID: 4333693422481761024}
+  - component: {fileID: 5660081822882302992}
   - component: {fileID: 1109682186866761823}
   m_Layer: 5
   m_Name: PercentLoadText
@@ -45,6 +46,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3166152307044308895}
   m_CullTransparentMesh: 1
+--- !u!114 &5660081822882302992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166152307044308895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8931e8650a53b304186a25ffde2055fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1109682186866761823
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   masterVolume: 1
   musicVolume: 0.7
-  baseMusicClip: {fileID: 8300000, guid: b5ab5a2632ff4e84ca731a788ca3645e, type: 3}
+  baseMusicClip: {fileID: 8300000, guid: c2ee6b73d15c0fe489952d76c19261b3, type: 3}
   overrideAudioSourceComponentClip: 1

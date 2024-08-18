@@ -70,11 +70,18 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
-        if (instance != null) throw new Exception("Only a single GameManager instance must exists");
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
 
-        LoadManagers();
-        DontDestroyOnLoad(this);
+            LoadManagers();
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Debug.LogWarning("Only a single GameManager instance must exists");
+            Destroy(gameObject);
+        }
     }
 
     private void Start()

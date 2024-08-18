@@ -7,11 +7,11 @@ public class PercentLoad : MonoBehaviour
     void Start()
     {
         m_TextMeshProUGUI = GetComponent<TextMeshProUGUI>();
-        m_TextMeshProUGUI.text = $"{GameManager.instance.sceneLoaderManager.loadProgress}%";
+        m_TextMeshProUGUI.text = $"{Mathf.Ceil(GameManager.instance.sceneLoaderManager.loadProgress * 100)}%";
     }
 
     void Update()
     {
-        m_TextMeshProUGUI.text = $"{GameManager.instance.sceneLoaderManager.loadProgress}%";
+        m_TextMeshProUGUI.text = $"{Mathf.Ceil(GameManager.instance.sceneLoaderManager.loadProgress * 100)}%";
     }
 }

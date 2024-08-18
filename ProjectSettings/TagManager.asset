@@ -68,9 +68,12 @@ TagManager:
   - name: Weapon
     uniqueID: 993700409
     locked: 0
-  - name: UI
+  - name: Game UI
     uniqueID: 3797674807
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Menu UI
+    uniqueID: 3021875119
     locked: 0
