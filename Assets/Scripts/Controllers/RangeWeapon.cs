@@ -25,9 +25,12 @@ public class RangeWeapon : Weapon
     {
         base.Awake();
 
+        throwable = rangeWeaponData.throwable;
+
         tagSelfThrower = rangeWeaponData.tagSelfThrower;
         tagThrowable = rangeWeaponData.tagThrowable;
         tagGround = rangeWeaponData.tagGround;
+
         maxPhysicsFrameIterations = rangeWeaponData.maxPhysicsFrameIterations;
     }
 
