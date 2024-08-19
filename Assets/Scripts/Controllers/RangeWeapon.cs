@@ -25,7 +25,10 @@ public class RangeWeapon : Weapon
     {
         base.Awake();
 
+        throwCooldown = weaponData.attackCooldownSeconds;
+
         throwable = rangeWeaponData.throwable;
+        throwForce = rangeWeaponData.throwForce;
 
         tagSelfThrower = rangeWeaponData.tagSelfThrower;
         tagThrowable = rangeWeaponData.tagThrowable;

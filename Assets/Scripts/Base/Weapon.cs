@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     public float attackCooldownSeconds;
 
     public void Awake()
-    {
+    {   
         tagTarget = weaponData.tagTarget;
         attackCooldownSeconds = weaponData.attackCooldownSeconds;
     }
