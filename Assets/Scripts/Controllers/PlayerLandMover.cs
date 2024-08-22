@@ -4,7 +4,7 @@ public class PlayerLandMover : LandMover
 {
     [SerializeField] private PlayerInputScriptableObject playerInputData;
     [SerializeField] private Transform aimPosition;
-    [SerializeField] private RangeWeapon playerWeapon;
+    [SerializeField] private Weapon playerWeapon;
     [SerializeField] private StatsInfo statsInfo;
 
     private PlayerInput playerInput;
@@ -39,13 +39,12 @@ public class PlayerLandMover : LandMover
 
     public void Update()
     {
-        if (playerInput.isThrowPressed()) playerWeapon.Throw();
+        if (playerInput.isThrowPressed()) playerWeapon.Attack();
         if (playerInput.isJumpPressed()) base.Jump();
 
         base.xdir = playerInput.GetMoveXDir();
 
-        //@todo: future mobile port problem here, need to pass just angle received by playerInput method
-        playerWeapon.SetAim(Camera.main.ScreenToWorldPoint(playerInput.GetAimDir()));
+        playerWeapon.SetAim(playerInput.GetAimDir());
 
         base.UpdateAnimation();
     }

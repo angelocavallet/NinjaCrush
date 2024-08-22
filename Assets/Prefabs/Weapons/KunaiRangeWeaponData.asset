@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwForce: 10
   throwable: {fileID: 7345529726907750235, guid: 695120fb7b7e7db4d8baa90858ae473c, type: 3}
+  offset: 1.2
   tagSelfThrower: Player
   tagThrowable: Bullet
   tagGround: Ground

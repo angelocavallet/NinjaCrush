@@ -9,7 +9,7 @@ public class PlayerInput
     private InputAction aimInput;
     private InputAction throwInput;
 
-    //@todo create InputManager
+    //@todo create InputManager ?
     public static PlayerInput instance
     {
         get => _instance;
@@ -59,6 +59,7 @@ public class PlayerInput
 
     public Vector2 GetAimDir()
     {
-        return aimInput.ReadValue<Vector2>();
+        //@todo: PCInputSO
+        return Camera.main.ScreenToWorldPoint(aimInput.ReadValue<Vector2>());
     }
 }

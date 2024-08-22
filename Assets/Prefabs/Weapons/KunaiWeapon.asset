@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfaf91216f1b56e4d92c8de8cacb4336, type: 3}
   m_Name: KunaiWeapon
   m_EditorClassIdentifier: 
-  attackCooldownSeconds: 0.3
+  attackCooldownSeconds: 1
   tagTarget: Enemy

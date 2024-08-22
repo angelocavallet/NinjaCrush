@@ -11,15 +11,34 @@ public class Weapon : MonoBehaviour
     public LineRenderer lineRenderer { private get; set; }
 
     public string tagTarget;
-    public float attackCooldownSeconds;
 
-    public void Awake()
+    protected float attackCooldownSeconds;
+    protected Vector2 aimDirection;
+    protected float lastAttackTime = -Mathf.Infinity;
+
+    public virtual void Awake()
     {   
         tagTarget = weaponData.tagTarget;
         attackCooldownSeconds = weaponData.attackCooldownSeconds;
     }
 
-    public void StartAttack()
+    public virtual void Update()
     {
+
+    }
+
+    public virtual void SetAim(Vector2 aimPosition)
+    {
+        aimDirection = (aimPosition - (Vector2)transform.position).normalized;
+        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(Vector3.forward * (angle + 90f));
+    }
+
+    public virtual void Attack()
+    {
+        if (Time.time >= lastAttackTime + attackCooldownSeconds)
+        {
+            lastAttackTime = Time.time;
+        }
     }
 }

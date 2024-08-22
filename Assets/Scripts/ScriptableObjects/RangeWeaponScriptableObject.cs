@@ -8,6 +8,7 @@ public class RangeWeaponScriptableObject : ScriptableObject
 
     [Header("Throwable")]
     public Throwable throwable;
+    public float offset;
 
     [Header("TAG Info")]
     public string tagSelfThrower = "Player";

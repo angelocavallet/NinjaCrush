@@ -12,22 +12,22 @@ public class RangeWeapon : Weapon
     private string tagGround;
     private int maxPhysicsFrameIterations = 30;
 
-    private Vector2 aimDirection;
-    //@TODO: move to rangeweapon
     private Scene simulationScene;
     private PhysicsScene physicsScene;
     private float throwForce;
     private float throwCooldown;
 
     private Throwable throwable;
+    private float offset;
 
-    public void Awake()
+    public override void Awake()
     {
         base.Awake();
 
         throwCooldown = weaponData.attackCooldownSeconds;
 
         throwable = rangeWeaponData.throwable;
+        offset = rangeWeaponData.offset;
         throwForce = rangeWeaponData.throwForce;
 
         tagSelfThrower = rangeWeaponData.tagSelfThrower;
@@ -37,35 +37,46 @@ public class RangeWeapon : Weapon
         maxPhysicsFrameIterations = rangeWeaponData.maxPhysicsFrameIterations;
     }
 
-    //@todo for mobile here need to change this to receive angle and decide angle in PlayerInput
-    public void SetAim(Vector2 pointerPosition)
+    public override void Update()
     {
-        //@TODO: move to rangeweapon ? playerInput ?
-        aimDirection = (pointerPosition - (Vector2)transform.position).normalized;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(Vector3.forward * (angle + 90f));
+        base.Update();
+
+        if (Time.time >= base.lastAttackTime + base.attackCooldownSeconds)
+        {
+            base.gameObject.SetActive(true);
+        }
+    }
+
+    public override void SetAim(Vector2 aimPosition)
+    {
+        base.SetAim(aimPosition);
         //SimulateTrajectory();
     }
 
-    public void Throw()
+    public override void Attack()
     {
-        StartAttack();
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        if (Time.time >= base.lastAttackTime + base.attackCooldownSeconds)
+        {
+            base.Attack();
+            throwNewThrowable();
+            base.gameObject.SetActive(false);
+        }
+    }
 
-        throwable.transform.position = transform.position;
-        throwable.transform.rotation = rotation;
+    private void throwNewThrowable()
+    {
+        throwable.transform.position = new Vector2(transform.position.x, transform.position.y) + aimDirection * offset;
+        throwable.transform.rotation = transform.rotation;
 
         Throwable newThrowable = Instantiate(throwable);
 
         newThrowable.targetTag = tagTarget;
         newThrowable.selfThrowerTag = tagSelfThrower;
         newThrowable.onThrowed = onThrowed;
-
         newThrowable.onHitedTarget = onHitedTarget;
         newThrowable.onHitedSomething = onHitedSomething;
 
-        newThrowable.Throw(aimDirection * throwForce);
+        newThrowable.Throw(base.aimDirection * throwForce);
     }
 
     private void CreatePhysicsScene()
@@ -99,7 +110,7 @@ public class RangeWeapon : Weapon
         newThrowable.isGhost = true;
         SceneManager.MoveGameObjectToScene(newThrowablePrefab, simulationScene);
 
-        newThrowable.Throw(aimDirection * throwForce);
+        newThrowable.Throw(base.aimDirection * throwForce);
 
         lineRenderer.positionCount = _maxPhysicsFrameIterations;
 
