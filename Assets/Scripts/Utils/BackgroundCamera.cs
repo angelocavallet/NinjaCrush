@@ -21,10 +21,15 @@ public class BackgroundCamera : MonoBehaviour
 
     void Update()
     {
+        //@todo: parallax disabled because there is a funny bug on updating offset
+        //need to increase/decrease actual offset and not reset it
+        //ex: when you run left parallax offset will be positive
+        //but when you turn right the offset becomes a negative value, so the background go like a WOOOOSHHH
+        //best solution found till now is store actual tile offset and just increase and decrease it relative as cameraDistance (not tested yet)
+
         //float cameraVelocity = Vector3.Distance(lastPositionParent, transform.parent.position) / Time.deltaTime;
         Vector3 cameraDistance = (lastPositionParent - transform.parent.position);
 
-        //@todo: solve parallax
         //cameraDistance *= Time.deltaTime;
         if (cameraDistance != Vector3.zero)
         {
