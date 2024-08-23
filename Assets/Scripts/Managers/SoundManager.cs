@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class SoundManager
 {
-    public static SoundManager instance {
-        get => _instance;
-        private set => _instance = value;
-    }
     public float masterVolume
     {
         get => _masterVolume;
@@ -35,7 +31,6 @@ public class SoundManager
 
     public SoundManager(SoundManagerScriptableObject soundManagerData, AudioSource someMusicSource)
     {
-        if (instance != null) throw new Exception("Only a single SoundManager instance must exists");
 
         musicSource = someMusicSource;
         baseMusicAudioClip = soundManagerData.baseMusicClip;
@@ -45,8 +40,6 @@ public class SoundManager
         if (!musicSource.clip || soundManagerData.overrideAudioSourceComponentClip) musicSource.clip = baseMusicAudioClip;
 
         musicSource.Play();
-
-        instance = this;
     }
 
     public void StartOtherMusicClip(AudioClip newMusicAudioClip)
