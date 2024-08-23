@@ -50,6 +50,7 @@ public class RangeWeapon : Weapon
     public override void SetAim(Vector2 aimPosition)
     {
         base.SetAim(aimPosition);
+        //@todo do trajectory
         //SimulateTrajectory();
     }
 

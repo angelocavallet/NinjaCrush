@@ -5,7 +5,6 @@ using System;
 
 public class EnumUtils
 {
-    //método usado para buscar o atributo "Description" de um tipo como ColetavelName
     public static string GetEnumDescription(Enum en)
     {
         Type type = en.GetType();

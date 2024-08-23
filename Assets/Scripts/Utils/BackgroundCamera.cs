@@ -24,6 +24,7 @@ public class BackgroundCamera : MonoBehaviour
         //float cameraVelocity = Vector3.Distance(lastPositionParent, transform.parent.position) / Time.deltaTime;
         Vector3 cameraDistance = (lastPositionParent - transform.parent.position);
 
+        //@todo: solve parallax
         //cameraDistance *= Time.deltaTime;
         if (cameraDistance != Vector3.zero)
         {
