@@ -29,7 +29,7 @@ public class LandMover : MonoBehaviour
     public float health { get; private set; }
     public Boolean recovering { get; private set; }
 
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D rb2D;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
@@ -41,9 +41,9 @@ public class LandMover : MonoBehaviour
     private bool doubleJumpCharged = false;
     private float recoveringTimer = 0f;
 
-    public void Awake()
+    public virtual void Awake()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
@@ -67,7 +67,7 @@ public class LandMover : MonoBehaviour
 
     public void UpdateMovement()
     {
-        velocity = rigidbody2D.velocity;
+        velocity = rb2D.velocity;
 
         if (recoveringTimer == 0f && xdir != 0f)
         {
@@ -100,7 +100,7 @@ public class LandMover : MonoBehaviour
             }
         }
 
-        rigidbody2D.velocity = velocity;
+        rb2D.velocity = velocity;
     }
 
     public void UpdateAnimation()
@@ -154,7 +154,7 @@ public class LandMover : MonoBehaviour
         jumpTrigger = true;
     }
 
-    public void Hurt(float damage, Vector2 dirHit, float magHit)
+    public virtual void Hurt(float damage, Vector2 dirHit, float magHit)
     {
         health -= Mathf.Abs(damage);
 
@@ -169,7 +169,7 @@ public class LandMover : MonoBehaviour
         {
             recovering = true;
             recoveringTimer = Time.time;
-            rigidbody2D.velocity = dirHit * magHit;
+            rb2D.velocity = dirHit * magHit;
         }
     }
 

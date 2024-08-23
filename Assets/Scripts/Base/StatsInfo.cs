@@ -10,15 +10,21 @@ public class StatsInfo : MonoBehaviour
 
     public float displayedHealth { private get; set; }
 
-    public void UpdateHealth(float offsetHealth)
+    public virtual void UpdateHealth(float offsetHealth)
     {
         displayedHealth += displayedHealth > 0 ? offsetHealth : 0;
         healthBar.UpdateCurrentValue(displayedHealth);
     }
 
-    protected void Show(string displayedText)
+    protected void ShowDamage(string damageText)
     {
-        GameObject damageGameObject = Instantiate(statsInfoData.DamageStatsInfoTextPrefab, canvas.transform);
+        Show(statsInfoData.DamageStatsInfoTextPrefab, damageText);
+    }
+    
+
+    protected void Show(GameObject statsInfoTextprefab, string displayedText)
+    {
+        GameObject damageGameObject = Instantiate(statsInfoTextprefab, canvas.transform);
         damageGameObject.GetComponent<TextMeshPro>().text = displayedText;
         damageGameObject.SetActive(true);
     }

@@ -7,7 +7,7 @@ public class BackgroundCamera : MonoBehaviour
     private Vector3 lastPositionParent;
     private SpriteRenderer spriteRenderer;
     private MaterialPropertyBlock block;
-    private float speed = 0f;
+    //private float speed = 0f;
 
     private const string MOVE_DIRECTION = "_MoveDirection";
     private const string OFFSET = "_Offset";

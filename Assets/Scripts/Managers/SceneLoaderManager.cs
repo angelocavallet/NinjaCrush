@@ -9,8 +9,6 @@ public class SceneLoaderManager
     private SceneLoaderManagerScriptableObject sceneLoaderManagerData;
     private float timeToCutoffSeconds = 0f;
     private string nextScene;
-    private bool loadSceneLoaded = true;
-    private float _loadProgress = 0f;
 
     public SceneLoaderManager(SceneLoaderManagerScriptableObject sceneLoaderManagerData) {
         this.sceneLoaderManagerData = sceneLoaderManagerData;
@@ -22,7 +20,6 @@ public class SceneLoaderManager
         nextScene = sceneName;
         timeToCutoffSeconds = 0f;
         loadProgress = 0f;
-        loadSceneLoaded = false;
         SceneManager.LoadScene(sceneLoaderManagerData.loadSceneName);
     }
 

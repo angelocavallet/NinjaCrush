@@ -11,7 +11,7 @@ public class EnemyLandMover : LandMover
 
     private System.Random rand = new System.Random();
 
-    public void Awake()
+    public override void Awake()
     {
         base.Awake();
 
@@ -69,7 +69,7 @@ public class EnemyLandMover : LandMover
         base.UpdateCollisionExit(col);
     }
 
-    public void Hurt(float damage, Vector2 dirHit, float magHit)
+    public override void Hurt(float damage, Vector2 dirHit, float magHit)
     {
         base.Hurt(damage, dirHit, magHit);
         statsInfo.UpdateHealth(-damage);

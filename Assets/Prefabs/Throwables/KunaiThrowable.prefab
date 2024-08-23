@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 777676820635154961}
   - component: {fileID: 8602107888304525927}
   - component: {fileID: 8471361957849234620}
-  - component: {fileID: 7345529726907750235}
   - component: {fileID: 5603450103445334577}
+  - component: {fileID: 7345529726907750235}
   m_Layer: 0
   m_Name: KunaiThrowable
   m_TagString: Bullet
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5403629240621340962}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7735975, w: -0.63367736}
-  m_LocalPosition: {x: 3.4187713, y: -0.43618858, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.9836813, w: 0.17991959}
+  m_LocalPosition: {x: 50.190556, y: -3.6708536, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -108,19 +108,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3630829, y: 0.13011424}
   m_EdgeRadius: 0
---- !u!114 &7345529726907750235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5403629240621340962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd3b3b9dbee462f4eade0a5630d6a6b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  throwableData: {fileID: 11400000, guid: 607523e2377903f499479ef37d936735, type: 2}
 --- !u!82 &5603450103445334577
 AudioSource:
   m_ObjectHideFlags: 0
@@ -217,6 +204,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7345529726907750235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5403629240621340962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd3b3b9dbee462f4eade0a5630d6a6b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwableData: {fileID: 11400000, guid: 607523e2377903f499479ef37d936735, type: 2}
 --- !u!1 &7235472689381191537
 GameObject:
   m_ObjectHideFlags: 0

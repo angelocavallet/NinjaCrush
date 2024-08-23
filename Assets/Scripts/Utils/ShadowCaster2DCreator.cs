@@ -15,7 +15,7 @@ using UnityEngine.Rendering.Universal;
 public class ShadowCaster2DCreator : MonoBehaviour
 {
     [SerializeField] private bool selfShadows = true;
-    [SerializeField] private float shadowOffset = .0f;
+    //[SerializeField] private float shadowOffset = .0f;
 
 #if UNITY_EDITOR
     private CompositeCollider2D tilemapCollider;

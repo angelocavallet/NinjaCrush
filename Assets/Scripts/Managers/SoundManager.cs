@@ -23,7 +23,6 @@ public class SoundManager
         }
     }
 
-    private static SoundManager _instance = null;
     private float _musicVolume;
     private float _masterVolume;
     private AudioSource musicSource;

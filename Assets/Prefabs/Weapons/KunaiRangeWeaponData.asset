@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce040316ca81204883430710c0f8b97, type: 3}
   m_Name: KunaiRangeWeaponData
   m_EditorClassIdentifier: 
-  throwForce: 10
+  throwForce: 12
   throwable: {fileID: 7345529726907750235, guid: 695120fb7b7e7db4d8baa90858ae473c, type: 3}
   offset: 1.2
   tagSelfThrower: Player

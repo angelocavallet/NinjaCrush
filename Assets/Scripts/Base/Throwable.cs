@@ -27,8 +27,8 @@ public class Throwable : MonoBehaviour
     private AudioClip hitTargetAudioClip;
     private AudioClip hitOtherAudioClip;
 
-    private Rigidbody2D rigidbody2D;
-    private Collider2D collider2D;
+    private Rigidbody2D rb2D;
+    private Collider2D coll2D;
     private AudioSource audioSource;
     private Boolean isHited = false;
     private float timeToDie = 0f;
@@ -48,15 +48,15 @@ public class Throwable : MonoBehaviour
         hitOtherEffectPrefab = throwableData.hitOtherEffectPrefab;
         hitOtherAudioClip = throwableData.hitOtherAudioClip;
 
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        collider2D = GetComponent<Collider2D>();
+        rb2D = GetComponent<Rigidbody2D>();
+        coll2D = GetComponent<Collider2D>();
         audioSource = GetComponent<AudioSource>();
     }
 
     public void Throw(Vector2 velocity)
     {
-        rigidbody2D.mass = mass;
-        rigidbody2D.velocity = velocity;
+        rb2D.mass = mass;
+        rb2D.velocity = velocity;
 
         if (isGhost) return;
 
@@ -72,7 +72,7 @@ public class Throwable : MonoBehaviour
     {
         if (!isHited)
         {
-            float angle = Mathf.Atan2(rigidbody2D.velocity.y, rigidbody2D.velocity.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(rb2D.velocity.y, rb2D.velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
         else
@@ -100,12 +100,12 @@ public class Throwable : MonoBehaviour
         throwEffectPrefab.GetComponent<ParticleSystem>().Stop();
         throwEffectPrefab.GetComponentInChildren<Transform>().gameObject.SetActive(false);
 
-        Vector2 dirHit = rigidbody2D.velocity.normalized;
-        float magHit = Mathf.Abs(rigidbody2D.velocity.magnitude * this.mass);
+        Vector2 dirHit = rb2D.velocity.normalized;
+        float magHit = Mathf.Abs(rb2D.velocity.magnitude * this.mass);
 
-        rigidbody2D.velocity = Vector3.zero;
-        rigidbody2D.isKinematic = true;
-        collider2D.enabled = false;
+        rb2D.velocity = Vector3.zero;
+        rb2D.isKinematic = true;
+        coll2D.enabled = false;
         transform.SetParent(otherCollider2D.transform);
 
         if (otherCollider2D.transform.CompareTag(targetTag))

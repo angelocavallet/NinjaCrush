@@ -13,9 +13,8 @@ public class SpawnManagerScriptableObject : ScriptableObject
     public float secondsPerWave;
 
     public Action spawnAction { private get; set; }
-    private int instanceNumber = 1;
     private System.Random rand = new System.Random();
     private List<GameObject> spawnPointList = new List<GameObject>();
-    private float nextSpawnExec = 0.0f;
+    //private float nextSpawnExec = 0.0f;
 
 }

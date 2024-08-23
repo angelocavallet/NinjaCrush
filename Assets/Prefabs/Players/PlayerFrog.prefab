@@ -239,6 +239,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3241286703480596520}
     m_Modifications:
+    - target: {fileID: 1170616429132283556, guid: 7032ef9f14d067548aa1682e7af6cf23, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -497292489
+      objectReference: {fileID: 0}
     - target: {fileID: 5446703420329080481, guid: 7032ef9f14d067548aa1682e7af6cf23, type: 3}
       propertyPath: m_Name
       value: StatsInfoCanvas
@@ -274,6 +278,18 @@ PrefabInstance:
     - target: {fileID: 8760855131778889326, guid: 7032ef9f14d067548aa1682e7af6cf23, type: 3}
       propertyPath: m_SizeDelta.y
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760855131778889326, guid: 7032ef9f14d067548aa1682e7af6cf23, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760855131778889326, guid: 7032ef9f14d067548aa1682e7af6cf23, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760855131778889326, guid: 7032ef9f14d067548aa1682e7af6cf23, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 8760855131778889326, guid: 7032ef9f14d067548aa1682e7af6cf23, type: 3}
       propertyPath: m_LocalPosition.x

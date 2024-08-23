@@ -1,11 +1,14 @@
 using UnityEngine;
 
+//@todo: is this necessary?
 public class KunaiThrowable : Throwable
 {
+    /*
     public void Awake()
     {   
         base.Awake();
     }
+    */
 
     public void OnTriggerEnter2D(Collider2D collider)
     {

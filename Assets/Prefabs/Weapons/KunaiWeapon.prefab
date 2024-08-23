@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2356007602626447456}
   - component: {fileID: 5564462636797807968}
-  - component: {fileID: 898753779193748756}
   - component: {fileID: 1365349342552256327}
   - component: {fileID: 4586911819203508280}
+  - component: {fileID: 898753779193748756}
   m_Layer: 0
   m_Name: KunaiWeapon
   m_TagString: Untagged
@@ -88,21 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &898753779193748756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7727483523037674654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00288798f354a1541ba9e61d318a138d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: a6db8c32c36723a4595d8e9560d2496f, type: 2}
-  tagTarget: Enemy
-  rangeWeaponData: {fileID: 11400000, guid: d82357b91d4022b41b068785257b03a6, type: 2}
 --- !u!82 &1365349342552256327
 AudioSource:
   m_ObjectHideFlags: 0
@@ -303,6 +288,21 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &898753779193748756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727483523037674654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00288798f354a1541ba9e61d318a138d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: a6db8c32c36723a4595d8e9560d2496f, type: 2}
+  tagTarget: Enemy
+  rangeWeaponData: {fileID: 11400000, guid: d82357b91d4022b41b068785257b03a6, type: 2}
 --- !u!1001 &6036534807892350284
 PrefabInstance:
   m_ObjectHideFlags: 0
