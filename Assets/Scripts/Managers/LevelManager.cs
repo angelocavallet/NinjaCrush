@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour
     public void Start()
     {
         GameManager.instance.Continue();
-        SoundManager.instance.StartOtherMusicClip(levelManagerData.levelSoundTrack);
+        GameManager.instance.soundManager.StartOtherMusicClip(levelManagerData.levelSoundTrack);
     }
 
 }

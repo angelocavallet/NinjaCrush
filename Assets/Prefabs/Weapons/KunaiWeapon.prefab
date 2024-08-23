@@ -102,7 +102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: a6db8c32c36723a4595d8e9560d2496f, type: 2}
   tagTarget: Enemy
-  attackCooldownSeconds: 0.4
   rangeWeaponData: {fileID: 11400000, guid: d82357b91d4022b41b068785257b03a6, type: 2}
 --- !u!82 &1365349342552256327
 AudioSource:
@@ -361,12 +360,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: m_Color.b
+      value: 0.42745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
       propertyPath: m_Color.g
-      value: 0.9843137
+      value: 0.9406046
       objectReference: {fileID: 0}
     - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
       propertyPath: m_LightOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: m_FalloffIntensity
+      value: 0.806
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 8.724186
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
