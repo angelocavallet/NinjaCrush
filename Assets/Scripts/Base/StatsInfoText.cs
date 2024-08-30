@@ -4,14 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform), typeof(TextMeshPro))]
 public class StatsInfoText : MonoBehaviour
 {
-    [SerializeField] private StatsInfoTextScriptableObject statsInfoData;
-    public Canvas canvas { private get; set; }
+    [SerializeField] private StatsInfoTextScriptableObject statsInfoTextData;
 
-    public ProgressBar healthBar { private get; set; }
-
-    public float displayedHealth { private get; set; }
-
-    private GameObject statsTextPrefab;
     private RectTransform rectTransform;
     private TextMeshPro textMeshPro;
     private float secondsToFade;
@@ -24,9 +18,9 @@ public class StatsInfoText : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         textMeshPro = GetComponent<TextMeshPro>();
 
-        secondsToFade = statsInfoData.secondsToFade;
-        fadeVelocity = statsInfoData.fadeVelocity;
-        verticalVelocity = statsInfoData.verticalVelocity;
+        secondsToFade = statsInfoTextData.secondsToFade;
+        fadeVelocity = statsInfoTextData.fadeVelocity;
+        verticalVelocity = statsInfoTextData.verticalVelocity;
 
         existTime = Time.time;
     }
@@ -52,19 +46,6 @@ public class StatsInfoText : MonoBehaviour
             }
         }
 
-        rectTransform.localPosition = new Vector2(rectTransform.localPosition.x, rectTransform.localPosition.y + (Time.deltaTime * verticalVelocity));
-    }
-
-    public void UpdateHealth(float offsetHealth)
-    {
-        displayedHealth += displayedHealth > 0 ? offsetHealth : 0;
-        healthBar.UpdateCurrentValue(displayedHealth);
-    }
-
-    protected void Show(string displayedText)
-    {
-        GameObject damageGameObject = Instantiate(statsTextPrefab, canvas.transform);
-        damageGameObject.GetComponent<TextMeshPro>().text = displayedText;
-        damageGameObject.SetActive(true);
+        transform.position = new Vector2(transform.position.x, transform.position.y + (Time.deltaTime * verticalVelocity));
     }
 }

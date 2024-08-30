@@ -4,27 +4,49 @@ using UnityEngine;
 public class StatsInfo : MonoBehaviour
 {
     [SerializeField] private StatsInfoScriptableObject statsInfoData;
-    public Canvas canvas { private get; set; }
 
-    public ProgressBar healthBar { private get; set; }
+    private ProgressBar healthBar;
+    private float displayedHealth;
 
-    public float displayedHealth { private get; set; }
-
-    public virtual void UpdateHealth(float offsetHealth)
+    public float maxHealth
     {
-        displayedHealth += displayedHealth > 0 ? offsetHealth : 0;
+        set {
+            displayedHealth = value;
+            healthBar.maxValue = value;
+        }
+    }
+
+    public void UpdateHealth(float health)
+    {
+        float healthOffset = health - displayedHealth;
+
+        if (healthOffset < 0) ShowDamage(healthOffset.ToString());
+
+        displayedHealth = health > 0 ? health : 0;
+
         healthBar.UpdateCurrentValue(displayedHealth);
+    }
+
+    public void Awake()
+    {
+        healthBar = GetComponentInChildren<ProgressBar>();
     }
 
     protected void ShowDamage(string damageText)
     {
         Show(statsInfoData.DamageStatsInfoTextPrefab, damageText);
     }
-    
 
     protected void Show(GameObject statsInfoTextprefab, string displayedText)
     {
-        GameObject damageGameObject = Instantiate(statsInfoTextprefab, canvas.transform);
+        if (!CanvasManager.canvas)
+        {
+            Debug.LogWarning("CanvasManager.canvas NOT FOUND!");
+            return;
+        }
+
+        GameObject damageGameObject = Instantiate(statsInfoTextprefab);
+        damageGameObject.transform.position = transform.position;
         damageGameObject.GetComponent<TextMeshPro>().text = displayedText;
         damageGameObject.SetActive(true);
     }

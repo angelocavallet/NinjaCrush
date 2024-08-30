@@ -3,9 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
 public class EnemyLandMover : LandMover
 {
-    [SerializeField] private StatsInfo statsInfo;
-    [SerializeField] private Weapon enemyWeapon;
-
     public const string TAG_GROUND = "Ground";
     public const string TAG_BULLET = "Bullet";
 
@@ -15,23 +12,19 @@ public class EnemyLandMover : LandMover
     {
         base.Awake();
 
-        if (enemyWeapon)
+        if (weapon)
         {
-            /**        statsInfo = statsInfo.Clone(transform, playerLandMover.health);
-             *           */
-
-
-            enemyWeapon.onThrowed = (Throwable throwable) =>
+            weapon.onThrowed = (Throwable throwable) =>
             {
                 //do something
             };
 
-            enemyWeapon.onHitedTarget = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) =>
+            weapon.onHitedTarget = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) =>
             {
                 collider.GetComponent<EnemyLandMover>().Hurt(throwable.damage, dirHit, magHit);
             };
 
-            enemyWeapon.onHitedSomething = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) =>
+            weapon.onHitedSomething = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) =>
             {
                 //do something
             };
@@ -72,7 +65,6 @@ public class EnemyLandMover : LandMover
     public override void Hurt(float damage, Vector2 dirHit, float magHit)
     {
         base.Hurt(damage, dirHit, magHit);
-        statsInfo.UpdateHealth(-damage);
     }
 
     private void StartWalk()

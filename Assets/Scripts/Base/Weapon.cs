@@ -16,15 +16,22 @@ public class Weapon : MonoBehaviour
     protected Vector2 aimDirection;
     protected float lastAttackTime = -Mathf.Infinity;
 
+    private Renderer rend;
+    private AudioSource audioSrc;
+
     public virtual void Awake()
-    {   
+    {
+        rend = GetComponent<Renderer>();
         tagTarget = weaponData.tagTarget;
         attackCooldownSeconds = weaponData.attackCooldownSeconds;
     }
 
     public virtual void Update()
     {
-
+        if (!rend.enabled && Time.time >= lastAttackTime + attackCooldownSeconds)
+        {
+            ToggleWeapon(true);
+        }
     }
 
     public virtual void SetAim(Vector2 aimPosition)
@@ -39,6 +46,30 @@ public class Weapon : MonoBehaviour
         if (Time.time >= lastAttackTime + attackCooldownSeconds)
         {
             lastAttackTime = Time.time;
+
+            ToggleWeapon(false);
+        }
+    }
+
+    private void ToggleWeapon(bool active)
+    {
+        rend.enabled = active;
+
+        if (audioSrc)
+        {
+            if (active)
+            {
+                audioSrc.Play();
+            }
+            else
+            {
+                audioSrc.Stop();
+            }
+        }
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(active);
         }
     }
 }

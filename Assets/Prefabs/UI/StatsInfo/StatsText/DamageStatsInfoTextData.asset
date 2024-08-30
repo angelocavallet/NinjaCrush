@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34a545a4709395448a7e9b10321944d, type: 3}
   m_Name: DamageStatsInfoTextData
   m_EditorClassIdentifier: 
-  verticalVelocity: 0.2
-  fadeVelocity: 0.2
-  secondsToFade: 2
+  verticalVelocity: 1.3
+  fadeVelocity: 0.5
+  secondsToFade: 0.5

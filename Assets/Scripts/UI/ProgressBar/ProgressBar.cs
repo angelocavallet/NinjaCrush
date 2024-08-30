@@ -14,7 +14,7 @@ public class ProgressBar : MonoBehaviour
         sliderRectTransform.offsetMax = new Vector2(percentVal, sliderRectTransform.offsetMax.y);
     }
 
-    private void Start()
+    public void Start()
     {
         maxWidthUI = sliderSlotRectTransform.rect.width;
     }

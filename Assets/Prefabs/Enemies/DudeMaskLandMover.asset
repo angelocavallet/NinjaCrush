@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d0ec88e0997b04eba04853619f9280, type: 3}
   m_Name: DudeMaskLandMover
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 100
   speed: 1
   maxSpeed: 3
-  jumpForce: 8
+  jumpForce: 2
   recoverColdown: 1
   hasDoubleJump: 1
   hasWallJump: 1
@@ -25,3 +25,5 @@ MonoBehaviour:
   ANIM_FALLING: Falling
   ANIM_GROUNDED: Grounded
   ANIM_HURT: Hurt
+  statsInfoCanvasPrefab: {fileID: 5446703420329080481, guid: 7032ef9f14d067548aa1682e7af6cf23, type: 3}
+  weaponPrefab: {fileID: 0}

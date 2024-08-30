@@ -4,8 +4,6 @@ public class PlayerLandMover : LandMover
 {
     [SerializeField] private PlayerInputScriptableObject playerInputData;
     [SerializeField] private Transform aimPosition;
-    [SerializeField] private Weapon playerWeapon;
-    [SerializeField] private StatsInfo statsInfo;
 
     private PlayerInput playerInput;
 
@@ -15,17 +13,17 @@ public class PlayerLandMover : LandMover
 
         playerInput = new PlayerInput(playerInputData);
 
-        if (playerWeapon)
+        if (weapon)
         {
-            playerWeapon.onThrowed = (Throwable throwable) => {
+            weapon.onThrowed = (Throwable throwable) => {
                 //do something
             };
 
-            playerWeapon.onHitedTarget = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
+            weapon.onHitedTarget = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
                 collider.GetComponent<EnemyLandMover>().Hurt(throwable.damage, dirHit, magHit);
             };
 
-            playerWeapon.onHitedSomething = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
+            weapon.onHitedSomething = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
                 //do something
             };
         }
@@ -39,12 +37,12 @@ public class PlayerLandMover : LandMover
 
     public void Update()
     {
-        if (playerInput.isThrowPressed()) playerWeapon.Attack();
+        if (playerInput.isThrowPressed()) weapon.Attack();
         if (playerInput.isJumpPressed()) base.Jump();
 
         base.xdir = playerInput.GetMoveXDir();
 
-        playerWeapon.SetAim(playerInput.GetAimDir());
+        weapon.SetAim(playerInput.GetAimDir());
 
         base.UpdateAnimation();
     }
@@ -67,6 +65,5 @@ public class PlayerLandMover : LandMover
     public override void Hurt(float damage, Vector2 dirHit, float magHit)
     {
         base.Hurt(damage, dirHit, magHit);
-        statsInfo.UpdateHealth(-damage);
     }
 }

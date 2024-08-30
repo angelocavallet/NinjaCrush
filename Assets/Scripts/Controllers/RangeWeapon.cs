@@ -40,11 +40,6 @@ public class RangeWeapon : Weapon
     public override void Update()
     {
         base.Update();
-
-        if (Time.time >= base.lastAttackTime + base.attackCooldownSeconds)
-        {
-            base.gameObject.SetActive(true);
-        }
     }
 
     public override void SetAim(Vector2 aimPosition)
@@ -60,7 +55,6 @@ public class RangeWeapon : Weapon
         {
             base.Attack();
             throwNewThrowable();
-            base.gameObject.SetActive(false);
         }
     }
 

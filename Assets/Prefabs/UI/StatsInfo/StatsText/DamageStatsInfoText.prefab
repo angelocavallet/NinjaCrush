@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8598244531924363888}
   - component: {fileID: 2012467560275494260}
   - component: {fileID: 812211384735231617}
-  m_Layer: 5
+  - component: {fileID: 5593700429991584429}
+  m_Layer: 7
   m_Name: DamageStatsInfoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,8 +128,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 150
-  m_fontSizeBase: 150
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -184,4 +185,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14de827c8e6a7d468b613f97370cc64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statsInfoData: {fileID: 11400000, guid: 15a63dba3b5fa3349bd7971956052ad7, type: 2}
+  statsInfoTextData: {fileID: 11400000, guid: 1b61883f89635e3409160810c05c625f, type: 2}
+--- !u!210 &5593700429991584429
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8561406084313379705}
+  m_Enabled: 1
+  m_SortingLayerID: -497292489
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0

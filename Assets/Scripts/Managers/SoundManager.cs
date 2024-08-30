@@ -44,6 +44,7 @@ public class SoundManager
     public void StartOtherMusicClip(AudioClip newMusicAudioClip)
     {
         musicSource.clip = newMusicAudioClip;
+        musicSource.Play();
     }
 
     public void StartBaseMusicClip()

@@ -1,11 +1,6 @@
 using UnityEngine;
 
-public class DamageStatsInfoText : StatsInfo
+public class DamageStatsInfoText : StatsInfoText
 {
-    public override void UpdateHealth(float offsetHealth)
-    {
-        base.UpdateHealth(offsetHealth);
 
-        if (offsetHealth < 0) base.ShowDamage(offsetHealth.ToString());
-    }
 }

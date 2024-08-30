@@ -21,4 +21,8 @@ public class LandMoverScriptableObject : ScriptableObject
     public string ANIM_FALLING = "Falling";
     public string ANIM_GROUNDED = "Grounded";
     public string ANIM_HURT = "Hurt";
+
+    [Header("Extras")]
+    public GameObject statsInfoCanvasPrefab;
+    public GameObject weaponPrefab;
 }

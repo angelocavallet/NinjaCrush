@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
@@ -6,7 +7,16 @@ public class LandMover : MonoBehaviour
 {
     [SerializeField] private LandMoverScriptableObject landMoverData;
 
+    public Vector2 groundTouchDirCheck { get; private set; }
+    public Vector2 otherTouchDirCheck { get; private set; }
+    public Boolean recovering { get; private set; }
+
+    protected float xdir;
+    protected StatsInfo statsInfo;
+    protected Weapon weapon;
+
     private float maxHealth;
+    private float health;
     private float speed;
     private float maxSpeed;
     private float jumpForce;
@@ -22,13 +32,6 @@ public class LandMover : MonoBehaviour
     private string ANIM_GROUNDED;
     private string ANIM_HURT;
 
-    protected float xdir;
-
-    public Vector2 groundTouchDirCheck { get; private set; }
-    public Vector2 otherTouchDirCheck { get; private set; }
-    public float health { get; private set; }
-    public Boolean recovering { get; private set; }
-
     private Rigidbody2D rb2D;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -43,27 +46,12 @@ public class LandMover : MonoBehaviour
 
     public virtual void Awake()
     {
-        rb2D = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
+        LoadComponents();
+        LoadSOSettings();
 
-        maxHealth = landMoverData.maxHealth;
-        speed = landMoverData.speed;
-        maxSpeed = landMoverData.maxSpeed;
-        jumpForce = landMoverData.jumpForce;
-        recoverColdown = landMoverData.recoverColdown;
-        hasDoubleJump = landMoverData.hasDoubleJump;
-        hasWallJump = landMoverData.hasWallJump;
-    
-        TAG_GROUND = landMoverData.TAG_GROUND;
-    
-        ANIM_MOVING = landMoverData.ANIM_MOVING;
-        ANIM_JUMPING = landMoverData.ANIM_JUMPING;
-        ANIM_FALLING = landMoverData.ANIM_FALLING;
-        ANIM_GROUNDED = landMoverData.ANIM_GROUNDED;
-        ANIM_HURT = landMoverData.ANIM_HURT;
+        LoadStatsInfo();
+        LoadWeapon();
     }
-
 
     public void UpdateMovement()
     {
@@ -158,6 +146,8 @@ public class LandMover : MonoBehaviour
     {
         health -= Mathf.Abs(damage);
 
+        statsInfo.UpdateHealth(health);
+
         if (health < 0f)
         {
             dieTrigger = true;
@@ -211,6 +201,55 @@ public class LandMover : MonoBehaviour
     public Boolean IsDead()
     {
         return dead;
+    }
+
+    private void LoadComponents()
+    {
+        rb2D = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void LoadSOSettings()
+    {
+        maxHealth = landMoverData.maxHealth;
+        health = maxHealth;
+        speed = landMoverData.speed;
+        maxSpeed = landMoverData.maxSpeed;
+        jumpForce = landMoverData.jumpForce;
+        recoverColdown = landMoverData.recoverColdown;
+        hasDoubleJump = landMoverData.hasDoubleJump;
+        hasWallJump = landMoverData.hasWallJump;
+
+        TAG_GROUND = landMoverData.TAG_GROUND;
+
+        ANIM_MOVING = landMoverData.ANIM_MOVING;
+        ANIM_JUMPING = landMoverData.ANIM_JUMPING;
+        ANIM_FALLING = landMoverData.ANIM_FALLING;
+        ANIM_GROUNDED = landMoverData.ANIM_GROUNDED;
+        ANIM_HURT = landMoverData.ANIM_HURT;
+    }
+
+    private void LoadStatsInfo()
+    {
+        statsInfo = GetComponentInChildren<StatsInfo>();
+
+        if (!statsInfo && landMoverData.statsInfoCanvasPrefab)
+        {
+            statsInfo = Instantiate(landMoverData.statsInfoCanvasPrefab, transform).GetComponent<StatsInfo>();
+        }
+
+        if (statsInfo) statsInfo.maxHealth = maxHealth;
+    }
+
+    private void LoadWeapon()
+    {
+        weapon = GetComponentInChildren<Weapon>();
+
+        if (!weapon && landMoverData.weaponPrefab)
+        {
+            weapon = Instantiate(landMoverData.weaponPrefab, transform).GetComponent<Weapon>();
+        }
     }
 
     private Vector2 UpdateVector2Collision(Collision2D col)
