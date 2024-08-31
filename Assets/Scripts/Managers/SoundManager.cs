@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class SoundManager
@@ -30,7 +29,6 @@ public class SoundManager
 
     public SoundManager(SoundManagerScriptableObject soundManagerData, AudioSource someMusicSource)
     {
-
         musicSource = someMusicSource;
         baseMusicAudioClip = soundManagerData.baseMusicClip;
         masterVolume = soundManagerData.masterVolume;
@@ -38,17 +36,21 @@ public class SoundManager
 
         if (!musicSource.clip || soundManagerData.overrideAudioSourceComponentClip) musicSource.clip = baseMusicAudioClip;
 
+        musicSource.loop = true;
         musicSource.Play();
     }
 
     public void StartOtherMusicClip(AudioClip newMusicAudioClip)
     {
         musicSource.clip = newMusicAudioClip;
+        musicSource.loop = true;
         musicSource.Play();
     }
 
     public void StartBaseMusicClip()
     {
         musicSource.clip = baseMusicAudioClip;
+        musicSource.loop = true;
+        musicSource.Play();
     }
 }
