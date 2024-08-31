@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: 5c17a602e6e3e744f81b134840cba966
   - enabled: 1
-    path: Assets/Scenes/FirstPhaseScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/Levels/Level01Scene.unity
     guid: 5df8f1637b44ab644a1ad2dae19d3a0d
   m_configObjects:
