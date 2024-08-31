@@ -5,6 +5,7 @@ public class LevelManager : MonoBehaviour
 {
     public LevelManagerScriptableObject levelManagerData;
 
+    public SpawnManager spawnManager;
     public TextMeshProUGUI scoreDisplayText;
     public GameObject canvas;
 
@@ -28,12 +29,20 @@ public class LevelManager : MonoBehaviour
     private float _timeLeft;
     private float _score;
 
-    public void Start()
+    public void Awake()
     {
         if (GameManager.instance != null)
         {
             GameManager.instance.Continue();
             GameManager.instance.soundManager.StartOtherMusicClip(levelManagerData.levelSoundTrack);
+        }
+    }
+
+    public void Start()
+    {
+        if (spawnManager)
+        {
+            spawnManager.LoadLevelRoundData(levelManagerData);
         }
     }
 

@@ -3,74 +3,95 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : MonoBehaviour 
 {
-    [SerializeField] private string tagSpawnLocations;
-    [SerializeField] private GameObject prefabToSpawn;
-    [SerializeField] private string prefabName;
-    [SerializeField] private int prefabPerWave;
-    [SerializeField] private float progressionEachWave;
-    [SerializeField] private float secondsPerWave;
+    public string tagSpawnPoints;
 
-    public Action spawnAction { private get; set; }
-    private int instanceNumber = 1;
-    private System.Random rand = new System.Random();
     private List<GameObject> spawnPointList = new List<GameObject>();
-    private float nextSpawnExec = 0.0f;
+    private List<LevelRoundData> levelRoundDataList;
+    private int instanceNumber = 1;
+    private float nextSpawnExec = 0f;
+    private float secondsPerWave = 0f;
+    private int actualLevelRoundData = 0;
+    private int actualLevelWaveData = 0;
+    private bool loaded = false;
 
-    public void DiscoverSpawnPoints(GameObject spawnerGameObject)
+    public void Awake()
     {
-        spawnPointList = GameObject.FindGameObjectsWithTag(tagSpawnLocations).ToList<GameObject>();
+        spawnPointList = GameObject.FindGameObjectsWithTag(tagSpawnPoints).ToList<GameObject>();
 
-        if (spawnPointList.Count == 0) throw new Exception($"Spawner -> No GameObject with ${tagSpawnLocations} tag was found :(");
+        if (spawnPointList.Count == 0) throw new Exception($"Spawner -> No GameObject with ${tagSpawnPoints} tag was found :(");
     }
 
-    public void UpdateSpawnManager()
+    public void Update()
     {
+        if (!loaded) return;
         if (Time.time < nextSpawnExec) return;
-        
-        nextSpawnExec += secondsPerWave;
-        if (spawnAction == null) spawnAction = SpawnEntitiesAtDistribuitedPoints;
 
-        spawnAction();
+        SpawnEntitiesAtDistribuitedPoints();
     }
 
-    public void SpawnEntitiesAtRandomPoints()
+    public void LoadLevelRoundData(LevelManagerScriptableObject levelManagerData)
     {
-        Debug.Log($"NEW WAVE: {prefabPerWave}");
-        for (int i = 0; i < prefabPerWave; i++)
-        {
+        levelRoundDataList = levelManagerData.roundsList;
+        secondsPerWave = levelManagerData.levelTimeSeconds / levelRoundDataList.SelectMany(round => round.waveList).Count();
 
-            GameObject spawnPoint = spawnPointList[rand.Next(0, spawnPointList.Count)];
+        Debug.Log($"Seconds Per Wave: {secondsPerWave}");
 
-            GameObject currentEntity = Instantiate(prefabToSpawn, spawnPoint.transform.position, Quaternion.identity);
-
-            currentEntity.name = prefabName + instanceNumber;
-
-            instanceNumber++;
-        }
-
-        prefabPerWave = (int)(prefabPerWave * progressionEachWave);
+        SpawnEntitiesAtDistribuitedPoints();
+        loaded = true;
     }
 
-    public void SpawnEntitiesAtDistribuitedPoints()
+    private void SpawnEntitiesAtDistribuitedPoints()
     {
+        if (!spawnPointList.Any()) return;
+        if (actualLevelRoundData >= levelRoundDataList.Count) return;
+        if (actualLevelWaveData >= levelRoundDataList[actualLevelRoundData].waveList.Count) return;
+
+        nextSpawnExec = Time.time + secondsPerWave;
+
+        GameObject spawnPrefab = levelRoundDataList[actualLevelRoundData].waveList[actualLevelWaveData].prefabToSpawn;
+        int numberOfEnemies = levelRoundDataList[actualLevelRoundData].waveList[actualLevelWaveData].numberOfEnemies;
         int currentSpawnPointIndex = 0;
 
-        Debug.Log($"NEW WAVE: {prefabPerWave}");
-        for (int i = 0; i < prefabPerWave; i++)
+        Debug.Log($"Round {actualLevelRoundData} Wave {actualLevelWaveData} of {numberOfEnemies} {spawnPrefab.name}");
+
+        for (int i = 0; i < numberOfEnemies; i++)
         {
             GameObject spawnPoint = spawnPointList[currentSpawnPointIndex];
 
-            GameObject currentEntity = Instantiate(prefabToSpawn, spawnPoint.transform.position, Quaternion.identity);
+            GameObject currentEntity = Instantiate(spawnPrefab, spawnPoint.transform);
 
-            currentEntity.name = prefabName + instanceNumber;
+            currentEntity.name = spawnPrefab.name + instanceNumber;
 
             currentSpawnPointIndex = (currentSpawnPointIndex + 1) % spawnPointList.Count;
 
             instanceNumber++;
         }
 
-        prefabPerWave = (int) (prefabPerWave * progressionEachWave);
+        actualLevelWaveData++;
+
+        if (actualLevelWaveData >= levelRoundDataList[actualLevelRoundData].waveList.Count)
+        {
+            actualLevelWaveData = 0;
+            actualLevelRoundData++;
+        }
+        Debug.Log($"Toal Number of Enemies: {instanceNumber}");
     }
+    /*
+    public void SpawnEntitiesAtRandomPoints()
+    {
+        for (int i = 0; i < prefabPerWave; i++)
+        {
+
+            GameObject spawnPoint = spawnPointList[rand.Next(0, spawnPointList.Count)];
+
+            GameObject currentEntity = Instantiate(spawnPrefab, spawnPoint.transform);
+
+            currentEntity.name = spawnPrefab.name + instanceNumber;
+
+            instanceNumber++;
+        }
+    }
+    */
 }

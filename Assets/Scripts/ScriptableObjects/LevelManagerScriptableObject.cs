@@ -14,5 +14,21 @@ public class LevelManagerScriptableObject : ScriptableObject
 
     public AudioClip levelSoundTrack;
 
-    public List<WaveData> listaFases = new List<WaveData>();
+    public List<LevelRoundData> roundsList = new List<LevelRoundData>();
+
 }
+
+[System.Serializable]
+public class LevelRoundData
+{
+    public string name;
+
+    public List<LevelWaveData> waveList = new List<LevelWaveData>();
+}
+
+[System.Serializable]
+public class LevelWaveData
+{
+    public int numberOfEnemies;
+    public GameObject prefabToSpawn;
+} 
