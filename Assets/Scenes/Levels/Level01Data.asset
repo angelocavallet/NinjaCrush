@@ -13,17 +13,24 @@ MonoBehaviour:
   m_Name: Level01Data
   m_EditorClassIdentifier: 
   levelSceneName: Level01Scene
-  levelDisplayName: THE INTRODUCTION
+  levelDisplayName: WAVE SANDBOX
   levelDisplaySprite: {fileID: 21300000, guid: 2d728ff08787c6640bbe4984c7ff018b, type: 3}
-  levelTimeSeconds: 120
-  levelSoundTrack: {fileID: 8300000, guid: 02faa372b622662478165fd943ce6e49, type: 3}
-  listaFases:
-  - name: Wave01
-    score: 0
-    cleared: 0
-  - name: Wave02
-    score: 0
-    cleared: 0
-  - name: Wave03
-    score: 0
-    cleared: 0
+  levelTimeSeconds: 240
+  levelSoundTrack: {fileID: 8300000, guid: 3be93ffe055a2204b8c0d9a3d3c4b52c, type: 3}
+  roundsList:
+  - name: Round 1
+    waveList:
+    - numberOfEnemies: 10
+      prefabToSpawn: {fileID: 7303306152223621682, guid: 86da8dea02b13ce40967c9cff42a4a1a, type: 3}
+    - numberOfEnemies: 20
+      prefabToSpawn: {fileID: 7303306152223621682, guid: 86da8dea02b13ce40967c9cff42a4a1a, type: 3}
+    - numberOfEnemies: 40
+      prefabToSpawn: {fileID: 7303306152223621682, guid: 86da8dea02b13ce40967c9cff42a4a1a, type: 3}
+  - name: Round 2
+    waveList:
+    - numberOfEnemies: 10
+      prefabToSpawn: {fileID: 7303306152223621682, guid: 86da8dea02b13ce40967c9cff42a4a1a, type: 3}
+    - numberOfEnemies: 20
+      prefabToSpawn: {fileID: 7303306152223621682, guid: 86da8dea02b13ce40967c9cff42a4a1a, type: 3}
+    - numberOfEnemies: 40
+      prefabToSpawn: {fileID: 7303306152223621682, guid: 86da8dea02b13ce40967c9cff42a4a1a, type: 3}
