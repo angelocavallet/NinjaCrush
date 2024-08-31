@@ -16,7 +16,7 @@ MonoBehaviour:
   throwablePrefab: {fileID: 5403629240621340962, guid: 695120fb7b7e7db4d8baa90858ae473c, type: 3}
   mass: 0.8
   damage: 7
-  lifeTimeSeconds: 50
+  lifeTimeSeconds: 30
   throwEffectPrefab: {fileID: 4135206969941052617, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
   hitTargetEffectPrefab: {fileID: 8719900064538854672, guid: 6ee6a912d231353478287bdd0fc6b018, type: 3}
   hitOtherEffectPrefab: {fileID: 4135206969941052617, guid: b5a3ad9ec7b366b49a5331eae1b6c548, type: 3}
