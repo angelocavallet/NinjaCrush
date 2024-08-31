@@ -10,7 +10,7 @@ public class SaveGameManager
 
     private static string gameDataPath = Application.persistentDataPath + "/GameData.json";
 
-    public SaveGameManager() { 
+    public SaveGameManager() {
         LoadGame();
     }
 
@@ -88,6 +88,7 @@ public class WaveData
 {
     public string name;
     public float score = 0;
+    public int numberEnemiesKilled;
     public bool cleared = false;
 }
 
