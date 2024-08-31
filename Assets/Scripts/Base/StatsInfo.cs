@@ -39,12 +39,6 @@ public class StatsInfo : MonoBehaviour
 
     protected void Show(GameObject statsInfoTextprefab, string displayedText)
     {
-        if (!CanvasManager.canvas)
-        {
-            Debug.LogWarning("CanvasManager.canvas NOT FOUND!");
-            return;
-        }
-
         GameObject damageGameObject = Instantiate(statsInfoTextprefab);
         damageGameObject.transform.position = transform.position;
         damageGameObject.GetComponent<TextMeshPro>().text = displayedText;
