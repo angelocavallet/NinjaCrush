@@ -56,7 +56,7 @@ public class Throwable : MonoBehaviour
     public void Throw(Vector2 velocity)
     {
         rb2D.mass = mass;
-        rb2D.velocity = velocity;
+        rb2D.linearVelocity = velocity;
 
         if (isGhost) return;
 
@@ -72,7 +72,7 @@ public class Throwable : MonoBehaviour
     {
         if (!isHited)
         {
-            float angle = Mathf.Atan2(rb2D.velocity.y, rb2D.velocity.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(rb2D.linearVelocity.y, rb2D.linearVelocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
         else
@@ -100,10 +100,10 @@ public class Throwable : MonoBehaviour
         throwEffectPrefab.GetComponent<ParticleSystem>().Stop();
         throwEffectPrefab.GetComponentInChildren<Transform>().gameObject.SetActive(false);
 
-        Vector2 dirHit = rb2D.velocity.normalized;
-        float magHit = Mathf.Abs(rb2D.velocity.magnitude * this.mass);
+        Vector2 dirHit = rb2D.linearVelocity.normalized;
+        float magHit = Mathf.Abs(rb2D.linearVelocity.magnitude * this.mass);
 
-        rb2D.velocity = Vector3.zero;
+        rb2D.linearVelocity = Vector3.zero;
         rb2D.isKinematic = true;
         coll2D.enabled = false;
         transform.SetParent(otherCollider2D.transform);

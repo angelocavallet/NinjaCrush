@@ -55,7 +55,7 @@ public class LandMover : MonoBehaviour
 
     public void UpdateMovement()
     {
-        velocity = rb2D.velocity;
+        velocity = rb2D.linearVelocity;
 
         if (recoveringTimer == 0f && xdir != 0f)
         {
@@ -88,7 +88,7 @@ public class LandMover : MonoBehaviour
             }
         }
 
-        rb2D.velocity = velocity;
+        rb2D.linearVelocity = velocity;
     }
 
     public void UpdateAnimation()
@@ -159,7 +159,7 @@ public class LandMover : MonoBehaviour
         {
             recovering = true;
             recoveringTimer = Time.time;
-            rb2D.velocity = dirHit * magHit;
+            rb2D.linearVelocity = dirHit * magHit;
         }
     }
 

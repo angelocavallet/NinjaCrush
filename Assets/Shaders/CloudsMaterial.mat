@@ -27,8 +27,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: 3755ba0d1da672b469846c35a24d442a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BackgroundTexture:
+        m_Texture: {fileID: 2800000, guid: d7ba6372e03bf3d46a6a23c6bca66711, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ForegroundCloudTexture:
         m_Texture: {fileID: 2800000, guid: 69bdb10ce66b9054badf4685f3631376, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: d7ba6372e03bf3d46a6a23c6bca66711, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainText:
@@ -53,14 +61,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Opacity: 0
     - _Scale: 1.2
     m_Colors:
     - _BackgroundDirection: {r: 0.002, g: 0.008, b: 0, a: 0}
+    - _Color: {r: 0, g: 0, b: 0, a: 0}
     - _ForegroundDirection: {r: 0.0025, g: 0.01, b: 0, a: 0}
     - _MainDirection: {r: 0.002, g: 0.005, b: 0, a: 0}
     - _MoveDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _SkySphereDirection: {r: 0.001, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &296271243617788646
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -73,4 +85,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 7
+  version: 9
