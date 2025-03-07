@@ -16,6 +16,11 @@ public class StatsInfo : MonoBehaviour
         }
     }
 
+    public void Awake()
+    {
+        healthBar = GetComponentInChildren<ProgressBar>();
+    }
+
     public void UpdateHealth(float health)
     {
         float healthOffset = health - displayedHealth;
@@ -25,11 +30,6 @@ public class StatsInfo : MonoBehaviour
         displayedHealth = health > 0 ? health : 0;
 
         healthBar.UpdateCurrentValue(displayedHealth);
-    }
-
-    public void Awake()
-    {
-        healthBar = GetComponentInChildren<ProgressBar>();
     }
 
     protected void ShowDamage(string damageText)

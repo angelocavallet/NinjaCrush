@@ -5,12 +5,14 @@ public class PlayerLandMover : LandMover
     [SerializeField] private PlayerInputScriptableObject playerInputData;
     [SerializeField] private Transform aimPosition;
 
+    private ExperienceHolder expHolder;
     private PlayerInput playerInput;
 
     public override void Awake()
     {
         base.Awake();
 
+        expHolder = new ExperienceHolder(0); //todo: move to load from PlayerData
         playerInput = new PlayerInput(playerInputData);
 
         if (weapon)
@@ -20,7 +22,16 @@ public class PlayerLandMover : LandMover
             };
 
             weapon.onHitedTarget = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {
-                collider.GetComponent<EnemyLandMover>().Hurt(throwable.damage, dirHit, magHit);
+                EnemyLandMover enemyLandMover = collider.GetComponent<EnemyLandMover>();
+                if (!enemyLandMover) return;
+
+                enemyLandMover.Hurt(throwable.damage, dirHit, magHit);
+
+                if (enemyLandMover.IsDead())
+                {
+                    expHolder.gainExperience(enemyLandMover.experience);
+                    Debug.Log($"Matou mais um! XP: {expHolder.experience}");
+                }
             };
 
             weapon.onHitedSomething = (Collider2D collider, Throwable throwable, Vector2 dirHit, float magHit) => {

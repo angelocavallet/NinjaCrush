@@ -53,6 +53,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -99,6 +102,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 71b3260917e87fd41bdb28184a2439f1, type: 3}
+  m_Resource: {fileID: 8300000, guid: 71b3260917e87fd41bdb28184a2439f1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -202,6 +206,9 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -378,6 +385,38 @@ PrefabInstance:
     - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
       propertyPath: m_PointLightOuterRadius
       value: 8.724186
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[1]'
+      value: -776228141
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[2]'
+      value: 984986535
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[3]'
+      value: -1092688145
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[4]'
+      value: -657978081
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[5]'
+      value: 993700409
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[6]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121046179527100912, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
+      propertyPath: 'm_ApplyToSortingLayers.Array.data[7]'
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8833828856981278512, guid: e4772db76b6c56c409eceaa6d73d654c, type: 3}
       propertyPath: m_Enabled

@@ -104,7 +104,7 @@ public class Throwable : MonoBehaviour
         float magHit = Mathf.Abs(rb2D.linearVelocity.magnitude * this.mass);
 
         rb2D.linearVelocity = Vector3.zero;
-        rb2D.isKinematic = true;
+        rb2D.bodyType = RigidbodyType2D.Kinematic;
         coll2D.enabled = false;
         transform.SetParent(otherCollider2D.transform);
 

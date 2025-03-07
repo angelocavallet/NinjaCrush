@@ -6,11 +6,19 @@ public class EnemyLandMover : LandMover
     public const string TAG_GROUND = "Ground";
     public const string TAG_BULLET = "Bullet";
 
+    public long experience
+    {
+        get => expHolder.experience;
+    }
+
     private System.Random rand = new System.Random();
+    private ExperienceHolder expHolder;
 
     public override void Awake()
     {
         base.Awake();
+
+        expHolder = new ExperienceHolder(120); //todo: move to ExperienceScriptableObject
 
         if (weapon)
         {

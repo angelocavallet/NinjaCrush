@@ -17,8 +17,8 @@ public class LandMover : MonoBehaviour
 
     private float maxHealth;
     private float health;
-    private float speed;
     private float maxSpeed;
+    private float speed;
     private float jumpForce;
     private float recoverColdown;
     private bool hasDoubleJump;
