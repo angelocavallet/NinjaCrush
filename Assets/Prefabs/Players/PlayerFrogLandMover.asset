@@ -26,4 +26,4 @@ MonoBehaviour:
   ANIM_GROUNDED: Grounded
   ANIM_HURT: Hurt
   statsInfoCanvasPrefab: {fileID: 5446703420329080481, guid: 7032ef9f14d067548aa1682e7af6cf23, type: 3}
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 7727483523037674654, guid: 6e2fd657ed349fd4c9cadf40049a35ef, type: 3}

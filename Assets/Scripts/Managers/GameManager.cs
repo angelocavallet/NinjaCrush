@@ -1,9 +1,11 @@
+using Cinemachine;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameManagerScriptableObject gameManagerData;
     [SerializeField] private AudioSource musicAudioSource;
+    private CinemachineVirtualCamera _camera;
 
     public static GameManager instance
     {
@@ -40,6 +42,24 @@ public class GameManager : MonoBehaviour
         set
         {
             _playerInput = value;
+        }
+    }
+
+    public CinemachineVirtualCamera camera
+    {
+        get => _camera;
+        set
+        {
+            _camera = value;
+        }
+    }
+
+    public Transform cameraTarget
+    {
+        get => _camera.Follow;
+        set
+        {
+            _camera.Follow = value;
         }
     }
 

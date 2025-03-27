@@ -9,10 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a70cf84a1f3b63a4eb45b578401cbe65, type: 3}
-  m_Name: SoundManagerData
+  m_Script: {fileID: 11500000, guid: 9cd2d0a1f50a4bfb8457be4b41099277, type: 3}
+  m_Name: NetworkData
   m_EditorClassIdentifier: 
-  masterVolume: 0.5
-  musicVolume: 0.7
-  baseMusicClip: {fileID: 8300000, guid: c2ee6b73d15c0fe489952d76c19261b3, type: 3}
-  overrideAudioSourceComponentClip: 1
+  Name: Session
+  ConnectionType: 1
+  ConnectionMode: 0
+  ListenIpAddress: 127.0.0.1
+  PublishIpAddress: 127.0.0.1
+  Port: 0
+  NetworkHandler: {fileID: 0}
+  MaxPlayers: 4
+  EnableVoiceChat: 0

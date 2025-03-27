@@ -14,5 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level01Scene.unity
     guid: 5df8f1637b44ab644a1ad2dae19d3a0d
+  - enabled: 0
+    path: Assets/Widgets/Scenes/WidgetsQuickstart.unity
+    guid: 70e85e850e4cc7d47808b7b3f59206b1
+  - enabled: 1
+    path: Assets/Scenes/LobbyScene.unity
+    guid: ac0d561f685e1d642beceebd6eff0184
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7899078df06a59c4082db38347b71f19, type: 2}
+  m_UseUCBPForAssetBundles: 0

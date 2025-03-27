@@ -1,9 +1,9 @@
 using System;
-using System.Xml.Serialization;
+using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
-public class LandMover : MonoBehaviour
+public class LandMover : NetworkBehaviour
 {
     [SerializeField] private LandMoverScriptableObject landMoverData;
 
@@ -89,6 +89,12 @@ public class LandMover : MonoBehaviour
         }
 
         rb2D.linearVelocity = velocity;
+    }
+
+    [ServerRpc]
+    private void UpdateMovementServerRpc()
+    {
+
     }
 
     public void UpdateAnimation()
@@ -244,8 +250,6 @@ public class LandMover : MonoBehaviour
 
     private void LoadWeapon()
     {
-        weapon = GetComponentInChildren<Weapon>();
-
         if (!weapon && landMoverData.weaponPrefab)
         {
             weapon = Instantiate(landMoverData.weaponPrefab, transform).GetComponent<Weapon>();

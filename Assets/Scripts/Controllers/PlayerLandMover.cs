@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerLandMover : LandMover
@@ -38,6 +39,8 @@ public class PlayerLandMover : LandMover
                 //do something
             };
         }
+
+        if (!GameManager.instance.cameraTarget) GameManager.instance.cameraTarget = transform;
     }
 
     public void Start()
@@ -48,12 +51,20 @@ public class PlayerLandMover : LandMover
 
     public void Update()
     {
-        if (playerInput.isThrowPressed()) weapon.Attack();
-        if (playerInput.isJumpPressed()) base.Jump();
+        if (!IsOwner) return;
+        if (playerInput == null) return;
 
-        base.xdir = playerInput.GetMoveXDir();
+        UpdateServerRpc(playerInput.GetMoveXDir(), playerInput.isJumpPressed(), playerInput.isThrowPressed(), playerInput.GetAimDir());
+    }
 
-        weapon.SetAim(playerInput.GetAimDir());
+    [ServerRpc]
+    public void UpdateServerRpc(float xdir, bool jump, bool attack, Vector2 aim)
+    {
+        base.xdir = xdir;
+        weapon.SetAim(aim);
+
+        if (attack) weapon.Attack();
+        if (jump) base.Jump();
 
         base.UpdateAnimation();
     }
