@@ -1,3 +1,4 @@
+using Unity.Burst.Intrinsics;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class PlayerLandMover : LandMover
 
     public override void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         base.Awake();
 
         expHolder = new ExperienceHolder(0); //todo: move to load from PlayerData
@@ -40,33 +43,28 @@ public class PlayerLandMover : LandMover
             };
         }
 
-        if (!GameManager.instance.cameraTarget) GameManager.instance.cameraTarget = transform;
+        if (IsOwner && !GameManager.instance.cameraTarget) GameManager.instance.cameraTarget = transform;
     }
 
     public void Start()
     {
+        if (!IsOwner) return;
+
         playerInput.EnableInputs();
         if (GameManager.instance) GameManager.instance.playerInput = playerInput;
     }
 
     public void Update()
     {
+        base.UpdateAnimation();
         if (!IsOwner) return;
         if (playerInput == null) return;
 
-        UpdateServerRpc(playerInput.GetMoveXDir(), playerInput.isJumpPressed(), playerInput.isThrowPressed(), playerInput.GetAimDir());
-    }
+        base.xdir = playerInput.GetMoveXDir();
+        weapon.SetAim(playerInput.GetAimDir());
 
-    [ServerRpc]
-    public void UpdateServerRpc(float xdir, bool jump, bool attack, Vector2 aim)
-    {
-        base.xdir = xdir;
-        weapon.SetAim(aim);
-
-        if (attack) weapon.Attack();
-        if (jump) base.Jump();
-
-        base.UpdateAnimation();
+        if (playerInput.isThrowPressed()) weapon.Attack();
+        if (playerInput.isJumpPressed()) base.Jump();
     }
 
     public void FixedUpdate()

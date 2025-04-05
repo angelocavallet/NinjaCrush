@@ -10,4 +10,13 @@ public class LoadSceneButton : MonoBehaviour
             GameManager.instance.sceneLoaderManager.LoadScene(sceneName);
         }
     }
+
+    public void loadNetworkScene(string sceneName)
+    {
+        if (GameManager.instance)
+        {
+            GameManager.instance.Continue();
+            GameManager.instance.sceneLoaderManager.LoadNetworkScene(sceneName);
+        }
+    }
 }
