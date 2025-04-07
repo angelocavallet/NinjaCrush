@@ -46,6 +46,12 @@ public class EnemyLandMover : LandMover
 
     public void FixedUpdate()
     {
+        base.UpdateMovement();
+
+        if (!IsOwner) return;
+
+        base.UpdateAnimation();
+
         if (base.IsWalled()) base.xdir = base.groundTouchDirCheck.x * -1;
 
         if (base.IsTouchingSomething())
@@ -55,10 +61,6 @@ public class EnemyLandMover : LandMover
         }
 
         if (base.IsOverSomething()) base.Jump();
-
-        base.UpdateMovement();
-        base.UpdateDirection();
-        base.UpdateAnimation();
     }
 
     public void OnCollisionStay2D(Collision2D col)

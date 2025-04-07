@@ -11,7 +11,15 @@ public class LandMover : NetworkBehaviour
     public Vector2 otherTouchDirCheck { get; private set; }
     public Boolean recovering { get; private set; }
 
-    public NetworkVariable<Vector3> syncVelocity = new NetworkVariable<Vector3>(
+    public NetworkVariable<Vector2> syncVelocity = new NetworkVariable<Vector2>(
+        writePerm: NetworkVariableWritePermission.Owner
+    );
+
+    public NetworkVariable<Vector2> syncGroundTouchDirCheck = new NetworkVariable<Vector2>(
+        writePerm: NetworkVariableWritePermission.Owner
+    );
+
+    public NetworkVariable<Vector2> syncOtherTouchDirCheck = new NetworkVariable<Vector2>(
         writePerm: NetworkVariableWritePermission.Owner
     );
 
@@ -59,12 +67,17 @@ public class LandMover : NetworkBehaviour
 
     public void UpdateMovement()
     {
-        if (IsOwner)
+        if (!IsOwner)
         {
-            syncVelocity.Value = rb2D.linearVelocity;
-     
-        } else {
             rb2D.linearVelocity = syncVelocity.Value;
+            otherTouchDirCheck = syncOtherTouchDirCheck.Value;
+            groundTouchDirCheck = syncGroundTouchDirCheck.Value;
+
+            velocity = syncVelocity.Value;
+            moving = Math.Abs(velocity.x) > 0.1f;
+            if (moving) spriteRenderer.flipX = velocity.normalized.x < 0.1f;
+
+            return;
         }
 
         velocity = rb2D.linearVelocity;
@@ -81,13 +94,14 @@ public class LandMover : NetworkBehaviour
             velocity.x = xMoveVel * xdir;
         }
 
+        moving = Math.Abs(velocity.x) > 0.1f;
+        if (moving) spriteRenderer.flipX = velocity.normalized.x < 0.1f;
+
         if (recoveringTimer > 0f && (recoveringTimer + recoverColdown < Time.time))
         {
             recovering = false;
             recoveringTimer = 0f;
         }
-
-        moving = Math.Abs(velocity.x) > 0.2f;
 
         if (jumpTrigger)
         {
@@ -101,11 +115,7 @@ public class LandMover : NetworkBehaviour
         }
 
         rb2D.linearVelocity = velocity;
-    }
-
-    public void UpdateDirection()
-    {
-        if (moving) spriteRenderer.flipX = velocity.normalized.x < 0.1f;
+        syncVelocity.Value = velocity;
     }
 
     public void UpdateAnimation()
@@ -130,25 +140,33 @@ public class LandMover : NetworkBehaviour
 
     public void UpdateCollisionStay2D(Collision2D col)
     {
+        if (!IsOwner) return; 
+
         if (col.gameObject.CompareTag(TAG_GROUND))
         {
             groundTouchDirCheck = UpdateVector2Collision(col);
+            syncGroundTouchDirCheck.Value = groundTouchDirCheck;
         }
         else
         {
             otherTouchDirCheck = UpdateVector2Collision(col);
+            syncOtherTouchDirCheck.Value = otherTouchDirCheck;
         }
     }
 
     public void UpdateCollisionExit(Collision2D col)
     {
+        if (!IsOwner) return;
+
         if (col.gameObject.CompareTag(TAG_GROUND))
         {
             groundTouchDirCheck = Vector2.zero;
+            syncGroundTouchDirCheck.Value = groundTouchDirCheck;
         }
         else
         {
             otherTouchDirCheck = Vector2.zero;
+            syncOtherTouchDirCheck.Value = otherTouchDirCheck;
         }
     }
 

@@ -56,8 +56,6 @@ public class PlayerLandMover : LandMover
 
     public void Update()
     {
-        base.UpdateDirection();
-
         if (!IsOwner) return;
         if (playerInput == null) return;
 
