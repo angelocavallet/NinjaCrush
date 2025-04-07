@@ -56,9 +56,12 @@ public class PlayerLandMover : LandMover
 
     public void Update()
     {
-        base.UpdateAnimation();
+        base.UpdateDirection();
+
         if (!IsOwner) return;
         if (playerInput == null) return;
+
+        base.UpdateAnimation();
 
         base.xdir = playerInput.GetMoveXDir();
         weapon.SetAim(playerInput.GetAimDir());

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour 
+public class SpawnManager : NetworkBehaviour 
 {
     public string tagSpawnPoints;
 
@@ -18,6 +19,8 @@ public class SpawnManager : MonoBehaviour
 
     public void Awake()
     {
+        if (!IsHost) return;
+
         spawnPointList = GameObject.FindGameObjectsWithTag(tagSpawnPoints).ToList<GameObject>();
 
         if (spawnPointList.Count == 0) throw new Exception($"Spawner -> No GameObject with ${tagSpawnPoints} tag was found :(");
@@ -25,6 +28,7 @@ public class SpawnManager : MonoBehaviour
 
     public void Update()
     {
+        if (!IsHost) return;
         if (!loaded) return;
         if (Time.time < nextSpawnExec) return;
 

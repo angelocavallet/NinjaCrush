@@ -57,6 +57,7 @@ public class EnemyLandMover : LandMover
         if (base.IsOverSomething()) base.Jump();
 
         base.UpdateMovement();
+        base.UpdateDirection();
         base.UpdateAnimation();
     }
 

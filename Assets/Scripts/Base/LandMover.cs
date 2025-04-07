@@ -11,6 +11,10 @@ public class LandMover : NetworkBehaviour
     public Vector2 otherTouchDirCheck { get; private set; }
     public Boolean recovering { get; private set; }
 
+    public NetworkVariable<Vector3> syncVelocity = new NetworkVariable<Vector3>(
+        writePerm: NetworkVariableWritePermission.Owner
+    );
+
     protected float xdir;
     protected StatsInfo statsInfo;
     protected Weapon weapon;
@@ -55,6 +59,14 @@ public class LandMover : NetworkBehaviour
 
     public void UpdateMovement()
     {
+        if (IsOwner)
+        {
+            syncVelocity.Value = rb2D.linearVelocity;
+     
+        } else {
+            rb2D.linearVelocity = syncVelocity.Value;
+        }
+
         velocity = rb2D.linearVelocity;
 
         if (recoveringTimer == 0f && xdir != 0f)
@@ -75,7 +87,7 @@ public class LandMover : NetworkBehaviour
             recoveringTimer = 0f;
         }
 
-        moving = Math.Abs(velocity.x) > 0.1f;
+        moving = Math.Abs(velocity.x) > 0.2f;
 
         if (jumpTrigger)
         {
@@ -91,16 +103,13 @@ public class LandMover : NetworkBehaviour
         rb2D.linearVelocity = velocity;
     }
 
-    [ServerRpc]
-    private void UpdateMovementServerRpc()
+    public void UpdateDirection()
     {
-
+        if (moving) spriteRenderer.flipX = velocity.normalized.x < 0.1f;
     }
 
     public void UpdateAnimation()
     {
-        if (moving) spriteRenderer.flipX = velocity.normalized.x < 0.1f;
-
         animator.SetBool(ANIM_MOVING, moving);
         animator.SetBool(ANIM_GROUNDED, IsGrounded() || IsOverSomething());
 
