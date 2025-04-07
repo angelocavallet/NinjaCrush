@@ -58,6 +58,11 @@ public class SceneLoaderManager : NetworkBehaviour
         asyncLoad.allowSceneActivation = true;
     }
 
+    public void SetUpOnNetworkSceneLoad()
+    {
+        NetworkManager.SceneManager.OnSceneEvent += GameManager.instance.sceneLoaderManager.OnNetworkSceneLoad;
+    }
+
     public void OnNetworkSceneLoad(SceneEvent sceneEvent)
     {
         SetSceneSettings("Level01Scene");

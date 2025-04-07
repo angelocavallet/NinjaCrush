@@ -1,7 +1,7 @@
-using Unity.Netcode;
 using UnityEngine.UI;
+using UnityEngine;
 
-public class StartSessionButton : NetworkBehaviour
+public class StartSessionButton : MonoBehaviour
 {
     private Button startButton;
 
@@ -13,20 +13,17 @@ public class StartSessionButton : NetworkBehaviour
 
     public void OnUpdate()
     {
-        startButton.interactable = IsHost;
+        startButton.interactable = true;
     }
 
     public void StartSceneListener()
     {
-        NetworkManager.SceneManager.OnSceneEvent += GameManager.instance.sceneLoaderManager.OnNetworkSceneLoad;
-        //GameManager.instance.sceneLoaderManager.LoadNetworkScene("Level01Scene");
-
+        GameManager.instance.sceneLoaderManager.SetUpOnNetworkSceneLoad();
     }
 
+    //@TODO Resolver essa gambiarra
     public void StartSceneSession()
     {
         GameManager.instance.sceneLoaderManager.LoadNetworkScene("Level01Scene");
     }
-
-    //@TODO Resolver essa gambiarra
 }

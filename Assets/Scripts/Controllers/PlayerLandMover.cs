@@ -12,8 +12,6 @@ public class PlayerLandMover : LandMover
 
     public override void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
         base.Awake();
 
         expHolder = new ExperienceHolder(0); //todo: move to load from PlayerData
