@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadSceneName: LoadScene
   startGameSceneName: MenuScene
-  minLoadTimeToCutoffSeconds: 3.5
+  minLoadTimeToCutoffSeconds: 2.3
   gameMessageLoadPrefab: {fileID: 1911184371911862387, guid: f606f37a2757bf343878154db39e941c, type: 3}
   percentTextPrefab: {fileID: 1109682186866761823, guid: 735f15c26a54cec4ba3c8511456d5400, type: 3}

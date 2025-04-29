@@ -31,8 +31,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5403629240621340962}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.8141645, w: -0.58063424}
-  m_LocalPosition: {x: 2.0391111, y: -0.38892898, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.56541926, w: 0.82480365}
+  m_LocalPosition: {x: -2.3798795, y: -1.2125247, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -261,6 +261,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 1
   TickSyncChildren: 1
   UseUnreliableDeltas: 0

@@ -1,28 +1,38 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnPlayerManager : MonoBehaviour
 {
     [Header("Desvio máximo do ponto de spawn")]
     public float maxOffset = 3f;
 
+    public GameObject playerPrefab;
+
     private void Start()
     {
-        if (NetworkManager.Singleton.IsClient && NetworkManager.Singleton.LocalClient?.PlayerObject != null)
+        NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnSceneLoadComplete;
+    }
+
+    private void OnDestroy()
+    {
+        if (NetworkManager.Singleton != null)
         {
-            NetworkObject player = NetworkManager.Singleton.LocalClient.PlayerObject;
+            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= OnSceneLoadComplete;
+        }
+    }
 
-            // Calcula uma posição aleatória ao redor do transform.position
-            Vector3 randomOffset = new Vector3(
-                Random.Range(-maxOffset, maxOffset),
-                transform.position.y,
-                transform.position.z
-            );
+    private void OnSceneLoadComplete(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    {
+        if (!NetworkManager.Singleton.IsServer) return;
 
-            Vector3 spawnPosition = transform.position + randomOffset;
-            player.transform.position = spawnPosition;
+        foreach (ulong clientId in clientsCompleted)
+        {
+            GameObject playerInstance = Instantiate(playerPrefab);
 
-            Debug.Log($"[ScenePositioner] Player reposicionado para {spawnPosition}");
+            var networkObject = playerInstance.GetComponent<NetworkObject>();
+            networkObject.SpawnAsPlayerObject(clientId, true);
         }
     }
 }

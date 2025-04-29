@@ -13,7 +13,6 @@ public class NetworkManagerButton : MonoBehaviour
     {
         NetworkManager.Singleton.Shutdown();
         NetworkManager.Singleton.StartClient();
-
     }
 
     public void StartHost()

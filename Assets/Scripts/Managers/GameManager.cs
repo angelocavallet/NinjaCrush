@@ -1,10 +1,8 @@
 using Cinemachine;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     [SerializeField] private GameManagerScriptableObject gameManagerData;
     [SerializeField] private AudioSource musicAudioSource;
@@ -124,7 +122,10 @@ public class GameManager : MonoBehaviour
         saveGameManager = new SaveGameManager();
         playerInput = new PlayerInput(gameManagerData.playerInputData);
         soundManager = new SoundManager(gameManagerData.soundManagerData, musicAudioSource);
-        sceneLoaderManager = new SceneLoaderManager(gameManagerData.sceneLoaderManagerData);
+
+        sceneLoaderManager = GetComponentInChildren<SceneLoaderManager>();
+
+        sceneLoaderManager.SetUp(gameManagerData.sceneLoaderManagerData);
 
         if (PlayerInput.instance != null) playerInput = PlayerInput.instance;
     }
